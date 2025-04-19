@@ -1,0 +1,160 @@
+/* Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: #000000;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2em;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 1.1em;
+    opacity: 0.9;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    height: calc(100vh - 136px);
+}
+
+/* Map Styles */
+#map {
+    flex: 1;
+    height: 100%;
+}
+
+/* Sidebar Styles */
+#sidebar {
+    width: 350px;
+    background-color: #f8f9fa;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 15px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar-header h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.3em;
+    color: black !important;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.filter-controls button {
+    flex: 1;
+    padding: 8px;
+    background-color: #457b9d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.filter-controls button:hover {
+    background-color: #1d3557;
+}
+
+/* Filters Container */
+#filters-container {
+    padding: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.filter-group h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+    color: #1d3557;
+}
+
+.filter-item {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.filter-item input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    accent-color: #3b82f6;
+}
+
+.filter-item label {
+    cursor: pointer;
+    font-size: 0.95em;
+    flex-grow: 1;
+    color: black !important;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 0.85em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    #sidebar {
+        width: 100%;
+        max-height: 40vh;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #map {
+        height: 60vh;
+    }
+}
