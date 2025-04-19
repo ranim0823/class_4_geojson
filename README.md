@@ -8,7 +8,17 @@ Through this resesarch project, I want to understand:
 
 1) Is there any correlations between the spatial distribution of certain types of restaurants with certain groups of people? For example, are there more coffee shops in neighborhoods with higher income or higher rent? Or, are "ethnic" restaurants more likely to locate in neighborhoods with higher percentage of foreign-born population? 
 
-2) 
+## Next Steps
+
+1) load geojson files of NYC's census tracts with %foreign-born, %female,%white, place of birth, ancestry, average gross rent, average gross income. 
+
+2) visualize census tracts as the base layer on map, create different layers for different parameters, and create a filter for each layer. 
+
+3) make census tract polygons clickable, with metadata in pop-up, along with the top five restaurant types and count of each type
+
+4) load geojson file of NYC's neighborhood boundary 
+
+5) create filters for restaurants in each neighborhood 
 
 ## Data Summary
 
