@@ -29,7 +29,7 @@ async function addNeighborhoodLayer() {
             source: 'nyc-neighborhoods',
             paint: {
                 'fill-color': '#888888', // Gray fill color
-                'fill-opacity': 0.4      // Semi-transparent
+                'fill-opacity': 0.1      // Semi-transparent
             }
         });
 
@@ -39,9 +39,9 @@ async function addNeighborhoodLayer() {
             type: 'line',
             source: 'nyc-neighborhoods',
             paint: {
-                'line-color': 'grey', // Grey outline
+                'line-color': 'dark grey', // Dark grey outline
                 'line-width': 1,
-                'line-opacity': 0.5  // Semi-transparent
+                'line-opacity': 0.2  // Semi-transparent
             }
         });
 
