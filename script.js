@@ -9,10 +9,87 @@ const map = new mapboxgl.Map({
     zoom: 13
 });
 
+// Add NYC neighborhoods base layer
+async function addNeighborhoodLayer() {
+    try {
+        const response = await fetch('nyc_neighborhood_Tabulation_areas_2020.geojson');
+        if (!response.ok) throw new Error('Failed to load NYC neighborhoods GeoJSON');
+        const geojsonData = await response.json();
+
+        // Add the GeoJSON source to the map
+        map.addSource('nyc-neighborhoods', {
+            type: 'geojson',
+            data: geojsonData
+        });
+
+        // Add a fill layer to display the neighborhoods
+        map.addLayer({
+            id: 'nyc-neighborhoods-fill',
+            type: 'fill',
+            source: 'nyc-neighborhoods',
+            paint: {
+                'fill-color': '#888888', // Gray fill color
+                'fill-opacity': 0.4      // Semi-transparent
+            }
+        });
+
+        // Add a line layer to outline the neighborhoods
+        map.addLayer({
+            id: 'nyc-neighborhoods-outline',
+            type: 'line',
+            source: 'nyc-neighborhoods',
+            paint: {
+                'line-color': 'grey', // Grey outline
+                'line-width': 1,
+                'line-opacity': 0.5  // Semi-transparent
+            }
+        });
+
+        // Add a click event listener to the fill layer
+        map.on('click', 'nyc-neighborhoods-fill', (e) => {
+            const properties = e.features[0].properties;
+            const coordinates = e.lngLat;
+
+            // Highlight the clicked polygon by increasing the border width
+            map.setPaintProperty('nyc-neighborhoods-outline', 'line-width', [
+                'case',
+                ['==', ['get', 'NTAName'], properties.NTAName], // Match the clicked neighborhood
+                3, // Bolden the border for the clicked polygon
+                1  // Default border width for others
+            ]);
+
+            // Create a popup with BoroName and NTAName
+            new mapboxgl.Popup()
+                .setLngLat(coordinates)
+                .setHTML(`
+                    <div>
+                        <strong>Borough:</strong> ${properties.BoroName}<br>
+                        <strong>Neighborhood:</strong> ${properties.NTAName}
+                    </div>
+                `)
+                .addTo(map);
+        });
+
+        // Change the cursor to a pointer when hovering over the polygons
+        map.on('mouseenter', 'nyc-neighborhoods-fill', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Reset the cursor when it leaves the polygons
+        map.on('mouseleave', 'nyc-neighborhoods-fill', () => {
+            map.getCanvas().style.cursor = '';
+        });
+
+        console.log('NYC neighborhoods layer added successfully.');
+    } catch (error) {
+        console.error('Error adding NYC neighborhoods layer:', error);
+    }
+}
+
 // Load unique food-related types
 async function loadUniqueFoodRelatedTypes() {
     try {
-        const response = await fetch('/unique_food_related_types.json');
+        const response = await fetch('unique_food_related_types.json');
         if (!response.ok) throw new Error('Failed to load unique food-related types');
         return await response.json();
     } catch (error) {
@@ -286,11 +363,66 @@ function addMarkers(restaurants, selectedFilter, selectedPrices) {
             el.style.opacity = '1'; // Fully opaque for matches
         } else {
             el.style.fontSize = '6px'; // Way smaller size for non-matches
-            el.style.opacity = '0.1'; // 90% transparent for non-matches
+            el.style.opacity = '0.3'; // 90% transparent for non-matches
         }
 
         el.style.textAlign = 'center';
         el.style.cursor = 'pointer';
+
+        // Add hover event listener to temporarily enlarge the marker
+        el.addEventListener('mouseenter', () => {
+            el.style.fontSize = '20px'; // Temporarily enlarge the marker
+            el.style.zIndex = '1000'; // Bring the marker to the front
+        });
+
+        el.addEventListener('mouseleave', () => {
+            // Reset the marker size and z-index
+            if (isPrimaryMatch || isPriceMatch) {
+                el.style.fontSize = '15px'; // Reset to larger size for matches
+            } else {
+                el.style.fontSize = '6px'; // Reset to smaller size for non-matches
+            }
+            el.style.zIndex = '1'; // Reset z-index
+        });
+
+        // Add hover event listener to show a popup
+        const popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+            offset: 15 // Offset the popup from the marker
+        });
+
+        el.addEventListener('mouseenter', () => {
+            // Filter sub-types to exclude the primary type
+            const filteredSubTypes = Array.isArray(restaurant.types)
+                ? restaurant.types.filter(type => type !== restaurant.primary_type).map(formatPrimaryType)
+                : [];
+
+            popup
+                .setLngLat(restaurant.coordinates)
+                .setHTML(`
+                    <div class="popup-content" style="line-height: 1.6; margin-bottom: 10px;">
+                        <h3>${restaurant.name}</h3>
+                        ${restaurant.price_level ? `
+                        <div class="price-level" style="margin-bottom: 10px;">
+                            <strong>Price Level:</strong> ${getPriceLevelEmoji(restaurant.price_level)}
+                        </div>` : ''}
+                        <p style="margin-bottom: 10px;"><strong>Primary Type:</strong> ${formatPrimaryType(restaurant.primary_type)}</p>
+                        ${filteredSubTypes.length > 0 ? `
+                        <p style="margin-bottom: 10px;"><strong>Sub-types:</strong> ${filteredSubTypes.join(', ')}</p>` : ''}
+                        <div class="rating-container" style="margin-bottom: 10px;">
+                            <span class="rating">${restaurant.rating.toFixed(1)}</span>
+                            <span class="stars">${'★'.repeat(Math.round(restaurant.rating))}</span>
+                            <span class="review-count">(${restaurant.review_count} reviews)</span>
+                        </div>
+                    </div>
+                `)
+                .addTo(map);
+        });
+
+        el.addEventListener('mouseleave', () => {
+            popup.remove();
+        });
 
         // Add the marker to the map
         const marker = new mapboxgl.Marker({
@@ -300,32 +432,8 @@ function addMarkers(restaurants, selectedFilter, selectedPrices) {
         .setLngLat(restaurant.coordinates)
         .addTo(map);
 
-        // Safely handle the "types" field and remove duplicates of the primary type
-        const subTypes = Array.isArray(restaurant.types) && restaurant.types.length > 0
-            ? restaurant.types
-                .filter(type => type !== restaurant.primary_type) // Exclude the primary type
-                .map(formatPrimaryType)
-                .join(', ')
-            : '';
-
-        // Add a popup to the marker
-        const popupContent = `
-            <div class="popup-content" style="line-height: 1.6; margin-bottom: 10px;">
-                <h3>${restaurant.name}</h3>
-                ${restaurant.price_level ? `
-                <div class="price-level" style="margin-bottom: 10px;">
-                    <strong>Price Level:</strong> ${getPriceLevelEmoji(restaurant.price_level)}
-                </div>` : ''}
-                <p style="margin-bottom: 10px;"><strong>Primary Type:</strong> ${formatPrimaryType(restaurant.primary_type)}</p>
-                ${subTypes ? `<p style="margin-bottom: 10px;"><strong>Sub-types:</strong> ${subTypes}</p>` : ''}
-                <div class="rating-container" style="margin-bottom: 10px;">
-                    <span class="rating">${restaurant.rating.toFixed(1)}</span>
-                    <span class="stars">${'★'.repeat(Math.round(restaurant.rating))}</span>
-                    <span class="review-count">(${restaurant.review_count} reviews)</span>
-                </div>
-            </div>
-        `;
-        marker.setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent));
+        // Store the primary type in the marker element for easy access
+        el.dataset.primaryType = restaurant.primary_type;
     });
 }
 
@@ -485,6 +593,18 @@ function filterRestaurants() {
     // Update markers on the map
     addMarkers(filtered, selectedFilter, selectedPrices);
 
+    // Highlight markers that match the selected filter by enlarging them
+    document.querySelectorAll('.mapboxgl-marker').forEach(marker => {
+        const markerType = marker.dataset.primaryType;
+        if (markerType === selectedFilter) {
+            marker.style.fontSize = '12px'; // Enlarge matching markers
+            marker.style.opacity = '1'; // Fully opaque for matching markers
+        } else {
+            marker.style.fontSize = '6px'; // Default size for non-matching markers
+            marker.style.opacity = '0.1'; // Semi-transparent for non-matching markers
+        }
+    });
+
     // Update the count for each filter checkbox
     updateFilterCounts(filtered);
 }
@@ -524,9 +644,15 @@ function updateFilterCounts(filteredRestaurants) {
 
     // Update the label for each filter checkbox
     document.querySelectorAll('#filters-container input[type="checkbox"]').forEach(checkbox => {
+        const label = checkbox.nextElementSibling; // Get the corresponding label
+        if (checkbox.checked) {
+            label.style.fontWeight = 'bold'; // Bolden the text of checked filters
+        } else {
+            label.style.fontWeight = 'normal'; // Reset to normal for unchecked filters
+        }
+
         if (checkbox.id.startsWith('type-')) {
             const type = checkbox.id.replace('type-', '');
-            const label = checkbox.nextElementSibling; // Get the corresponding label
             const count = filterCounts[type] || 0; // Default to 0 if no matches
 
             // Handle combined filter "coffee_cafe"
@@ -539,7 +665,6 @@ function updateFilterCounts(filteredRestaurants) {
             }
         } else if (checkbox.id.startsWith('price-')) {
             const price = checkbox.id.replace('price-', '');
-            const label = checkbox.nextElementSibling; // Get the corresponding label
             const count = filterCounts[price] || 0; // Default to 0 if no matches
             label.innerHTML = `${getPriceLevelEmoji(price)} (${count})`;
         }
@@ -571,6 +696,9 @@ async function initializeApp() {
         // Ensure no markers are displayed initially
         filterRestaurants();
     }
+
+    // Add the NYC neighborhoods base layer
+    addNeighborhoodLayer();
 }
 
 // Start the app

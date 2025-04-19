@@ -45,6 +45,10 @@ header p {
     height: 100%;
 }
 
+.mapboxgl-popup {
+    z-index: 2000; /* Ensure the popup is above the markers */
+}
+
 /* Sidebar Styles */
 #sidebar {
     width: 350px;
