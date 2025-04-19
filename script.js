@@ -12,7 +12,7 @@ const map = new mapboxgl.Map({
 // Add NYC neighborhoods base layer
 async function addNeighborhoodLayer() {
     try {
-        const response = await fetch('nyc_neighborhood_Tabulation_areas_2020.geojson');
+        const response = await fetch('nyc_neighborhood_tabulation_areas_2020.geojson');
         if (!response.ok) throw new Error('Failed to load NYC neighborhoods GeoJSON');
         const geojsonData = await response.json();
 
