@@ -549,7 +549,7 @@ function updateFilterCounts(filteredRestaurants) {
 // Load restaurant data
 async function loadRestaurantData() {
     try {
-        const response = await fetch('/class_3_nyc-restaurant-review-google-maps/filtered_restaurants.json');
+        const response = await fetch('/filtered_restaurants.json');
         if (!response.ok) throw new Error('Failed to load data');
         const rawData = await response.json();
         return processRestaurantData(rawData);
