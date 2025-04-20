@@ -49,6 +49,30 @@ header p {
     z-index: 2000; /* Ensure the popup is above the markers */
 }
 
+/* Style for the neighborhood pop-up */
+.neighborhood-popup .mapboxgl-popup-content {
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow if the content exceeds the width */
+    text-overflow: ellipsis; /* Add ellipsis if the content is too long */
+    font-family: Arial, sans-serif; /* Use a clean font */
+    font-size: 14px; /* Adjust font size */
+    padding: 10px; /* Add padding for better readability */
+    background-color: #f8f9fa; /* Light background */
+    color: #212529; /* Dark text */
+    border: 1px solid #6c757d; /* Gray border */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Restaurant popup styles */
+.restaurant-popup .mapboxgl-popup-content {
+    background-color: #212529; /* Dark background */
+    color: #f8f9fa; /* Light text */
+    border: 2px solid #ffc107; /* Yellow border */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    padding: 8px;
+}
+
 /* Sidebar Styles */
 #sidebar {
     width: 350px;
@@ -133,6 +157,54 @@ header p {
     font-size: 0.95em;
     flex-grow: 1;
     color: black !important;
+}
+
+.map-legend {
+    position: absolute;
+    bottom: 45px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    z-index: 1000;
+}
+
+.map-legend h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend-item span {
+    margin-right: 10px;
+    border-radius: 2px;
+}
+
+/* Legend items */
+.map-legend div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; /* Add spacing between legend items */
+}
+
+/* Legend color boxes */
+.map-legend span {
+    display: inline-block;
+    border: #dadfe3; /* Gray border */
+    border-width: 0.5px; /* Thin border */
+    width: 20px; /* Make the color boxes bigger */
+    height: 15px; /* Make the color boxes bigger */
+    margin-right: 10px; /* Add spacing between the box and text */
+    border-radius: 2px; /* Rounded corners for the color boxes */
 }
 
 /* Footer Styles */

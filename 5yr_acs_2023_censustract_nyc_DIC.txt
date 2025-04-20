@@ -1,0 +1,542 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R13858346
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           ACS 2023 (5-Year Estimates)
+Dataset:          Social Explorer Tables: ACS 2023 (5-Year Estimates)
+Tables:
+
+      1. Total Population
+         Universe:  Total Population
+         Name:      A00001
+         Variables:
+            A00001_001:   Total Population
+
+
+      2. Population Density (Per Sq. Mile)
+         Universe:  Total Population
+         Name:      A00002
+         Variables:
+            A00002_001:   Total Population
+            A00002_002:   Population Density (Per Sq. Mile)
+            A00002_003:   Area (Land)
+
+
+      3. Sex
+         Universe:  Total Population
+         Name:      A02001
+         Variables:
+            A02001_001:   Total Population:
+            A02001_002:      Male
+            A02001_003:      Female
+
+
+      4. Age
+         Universe:  Total Population
+         Name:      A01001
+         Variables:
+            A01001_001:   Total Population:
+            A01001_002:      Under 5 Years
+            A01001_003:      5 to 9 Years
+            A01001_004:      10 to 14 Years
+            A01001_005:      15 to 17 Years
+            A01001_006:      18 to 24 Years
+            A01001_007:      25 to 34 Years
+            A01001_008:      35 to 44 Years
+            A01001_009:      45 to 54 Years
+            A01001_010:      55 to 64 Years
+            A01001_011:      65 to 74 Years
+            A01001_012:      75 to 84 Years
+            A01001_013:      85 Years and Over
+
+
+      5. Median Age by Sex
+         Universe:  Total Population
+         Name:      A01004
+         Variables:
+            A01004_001:   Median Age:
+            A01004_002:      Male Population
+            A01004_003:      Female Population
+
+
+      6. Race
+         Universe:  Total Population
+         Name:      A03001
+         Variables:
+            A03001_001:   Total Population:
+            A03001_002:      White Alone
+            A03001_003:      Black or African American Alone
+            A03001_004:      American Indian and Alaska Native Alone
+            A03001_005:      Asian Alone
+            A03001_006:      Native Hawaiian and Other Pacific Islander Alone
+            A03001_007:      Some Other Race Alone
+            A03001_008:      Two or More Races
+
+
+      7. Hispanic or Latino by Race
+         Universe:  Total Population
+         Name:      A04001
+         Variables:
+            A04001_001:   Total Population
+            A04001_002:      Not Hispanic or Latino:
+            A04001_003:         White Alone
+            A04001_004:         Black or African American Alone
+            A04001_005:         American Indian and Alaska Native Alone
+            A04001_006:         Asian Alone
+            A04001_007:         Native Hawaiian and Other Pacific Islander Alone
+            A04001_008:         Some Other Race Alone
+            A04001_009:         Two or More Races
+            A04001_010:      Hispanic or Latino:
+            A04001_011:         White Alone
+            A04001_012:         Black or African American Alone
+            A04001_013:         American Indian and Alaska Native Alone
+            A04001_014:         Asian Alone
+            A04001_015:         Native Hawaiian and Other Pacific Islander Alone
+            A04001_016:         Some Other Race Alone
+            A04001_017:         Two or More Races
+
+
+      8. Households by Household Type
+         Universe:  Households
+         Name:      A10008
+         Variables:
+            A10008_001:   Households:
+            A10008_002:      Family Households:
+            A10008_003:         Married-Couple Family
+            A10008_004:         Other Family:
+            A10008_005:            Male Householder, No Wife Present
+            A10008_006:            Female Householder, No Husband Present
+            A10008_007:      Nonfamily Households:
+            A10008_008:         Male Householder
+            A10008_009:         Female Householder
+
+
+      9. Marital Status for the Population 15 Years and Over
+         Universe:  Population 15 Years and Over
+         Name:      A11001
+         Variables:
+            A11001_001:   Population 15 Years and Over:
+            A11001_002:      Never Married
+            A11001_003:      Now Married (Not Including Separated)
+            A11001_004:      Separated
+            A11001_005:      Widowed
+            A11001_006:      Divorced
+
+
+      10. Educational Attainment for Population 25 Years and Over
+          Universe:  Population 25 Years and Over
+          Name:      A12001
+          Variables:
+             A12001_001:   Population 25 Years and Over:
+             A12001_002:      Less than High School
+             A12001_003:      High School Graduate or More (Includes Equivalency)
+             A12001_004:      Some College or More
+             A12001_005:      Bachelor's Degree or More
+             A12001_006:      Master's Degree or More
+             A12001_007:      Professional School Degree or More
+             A12001_008:      Doctorate Degree
+
+
+      11. School Dropout Rate for Population 16 to 19 Years
+          Universe:  Civilian Population 16 to 19 Years
+          Name:      A12003
+          Variables:
+             A12003_001:   Civilian Population 16 to 19 Years:
+             A12003_002:      Not High School Graduate, Not Enrolled (Dropped Out)
+             A12003_003:      High School Graduate, or Enrolled (In School)
+
+
+      12. Median Household Income (In <DollarYear> Inflation Adjusted Dollars)
+          Universe:  Households
+          Name:      A14006
+          Variables:
+             A14006_001:   Median Household Income (In 2023 Inflation Adjusted Dollars)
+
+
+      13. Housing Units
+          Universe:  Housing units
+          Name:      A10001
+          Variables:
+             A10001_001:   Housing Units
+
+
+      14. Tenure
+          Universe:  Occupied Housing Units
+          Name:      A10060
+          Variables:
+             A10060_001:   Occupied Housing Units:
+             A10060_002:      Owner Occupied
+             A10060_003:      Renter Occupied
+
+
+      15. Occupancy Status
+          Universe:  Housing units
+          Name:      A10044
+          Variables:
+             A10044_001:   Housing Units:
+             A10044_002:      Occupied
+             A10044_003:      Vacant
+
+
+      16. Vacancy Status by Type of Vacancy
+          Universe:  Vacant housing units
+          Name:      A10047
+          Variables:
+             A10047_001:   Vacant Housing Units:
+             A10047_002:      For Rent
+             A10047_003:      For Sale Only
+             A10047_004:      Other Vacant
+
+
+      17. Housing Units in Structure
+          Universe:  Housing Units
+          Name:      A10032
+          Variables:
+             A10032_001:   Housing Units:
+             A10032_002:      1 Unit:
+             A10032_003:         1, Detached
+             A10032_004:         1, Attached
+             A10032_005:      2
+             A10032_006:      3 or 4
+             A10032_007:      5 to 9
+             A10032_008:      10 to 19
+             A10032_009:      20 to 49
+             A10032_010:      50 or More
+             A10032_011:      Mobile Home
+             A10032_012:      Boat, Rv, Van, Etc.
+
+
+      18. Median Year Structure Built
+          Universe:  Housing units
+          Name:      A10057
+          Variables:
+             A10057_001:   Median Year Structure Built
+
+
+      19. House Heating Fuel
+          Universe:  Occupied Housing Units
+          Name:      A10034
+          Variables:
+             A10034_001:   Occupied Housing Units:
+             A10034_002:      Gas (Utility, Bottled, Tank, or Lp Gas)
+             A10034_003:      Electricity
+             A10034_004:      Fuel Oil, Kerosene, Etc.
+             A10034_005:      Coal, Coke or Wood
+             A10034_006:      Solar Energy
+             A10034_007:      Other Fuel
+             A10034_008:      No Fuel Used
+
+
+      20. Median House Value for All Owner-Occupied Housing Units
+          Universe:  Owner-occupied housing units
+          Name:      A10036
+          Variables:
+             A10036_001:   Median Value
+
+
+      21. Median Gross Rent
+          Universe:  Renter-occupied housing units paying cash rent
+          Name:      A18009
+          Variables:
+             A18009_001:   Median Gross Rent
+
+
+      22. Median Gross Rent as a Percentage of Household Income in the Past 12 Months (Dollars)
+          Universe:  Renter-occupied housing units paying cash rent
+          Name:      A18003
+          Variables:
+             A18003_001:   Median Gross Rent as a Percentage of Household  Income in the Past 12 Months (Dollars)
+
+
+      23. Median Selected Monthly Owner Costs as a Percentage of Household Income in the Past 12 Months (Dollars) and Mortgage Status
+          Universe:  Owner-occupied housing units
+          Name:      A10037
+          Variables:
+             A10037_001:   Median Selected Monthly Owner Costs as a Percentage of Household Income:
+             A10037_002:      Housing Units with a Mortgage
+             A10037_003:      Housing Units Without a Mortgage
+
+
+      24. Poverty Status in of Families by Family Type by Presence of Children Under 18 Years
+          Universe:  Families
+          Name:      A13002
+          Variables:
+             A13002_001:   Families:
+             A13002_002:      Income Below Poverty Level:
+             A13002_003:         Married Couple Family: with Related Child Living  Below Poverty Level
+             A13002_004:         Married Couple Family: No Related Children Under 18 Years
+             A13002_005:         Male Householder, No Wife Present:
+             A13002_006:            With Related Children Under 18 Years
+             A13002_007:            No Related Children Under 18 Years
+             A13002_008:         Female Householder, No Husband Present:
+             A13002_009:            With Related Children Under 18 Years
+             A13002_010:            No Related Children Under 18 Years
+             A13002_011:      Income At or Above Poverty Level
+
+
+      25. Ratio of Income in 2020 to Poverty Level
+          Universe:  Population for whom poverty status Is determined
+          Name:      A13004
+          Variables:
+             A13004_001:   Population for Whom Poverty Status Is Determined:
+             A13004_002:      Under .50
+             A13004_003:      .50 to .74
+             A13004_004:      .75 to .99
+             A13004_005:      1.00 to 1.49
+             A13004_006:      1.50 to 1.99
+             A13004_007:      2.00 and Over
+
+
+      26. Ratio of Income in 2020 to Poverty Level (Summarized - top-coded at 2.00)
+          Universe:  Population for whom poverty status Is determined
+          Name:      B13004
+          Variables:
+             B13004_001:   Population for Whom Poverty Status Is Determined:
+             B13004_002:      Under 1.00 (Doing Poorly)
+             B13004_003:      1.00 to 1.99 (Struggling)
+             B13004_004:      Under 2.00 (Poor or Struggling)
+             B13004_005:      2.00 and Over (Doing Ok)
+
+
+      27. Nativity by Citizenship Status
+          Universe:  Total Population
+          Name:      A06001
+          Variables:
+             A06001_001:   Total Population:
+             A06001_002:      Native Born
+             A06001_003:      Foreign Born:
+             A06001_004:         Naturalized Citizen
+             A06001_005:         Not a Citizen
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      FIPS:           FIPS
+      QName:          Qualifying Name
+      STUSAB:         State Postal Abbreviation
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      US:             US
+      REGION:         Census Region
+      DIVISION:       Census Division
+      STATE:          State (FIPS Code)
+      COUNTY:         County of current residence
+      COUSUB:         County Subdivision (FIPS)
+      PLACE:          Place (FIPS Code)
+      TRACT:          Census Tract
+      BLKGRP:         Block Group
+      CONCIT:         Consolidated City
+      AIANHH:         American Indian Area/Alaska Native Area/Hawaiian Home Land (Census)
+      AIANHHFP:       American Indian Area/Alaska Native Area/Hawaiian Home Land (FIPS)
+      AIHHTLI:        American Indian Trust Land/Hawaiian Home Land Indicator
+      AITS:           American Indian Tribal Subdivision (FIPS)
+      ANRC:           Alaska Native Regional Corporation (FIPS)
+      CBSA:           Metropolitan and Micropolitan Statistical Area
+      CSA:            Combined Statistical Area
+      METDIV:         Metropolitan Statistical Area Metropolitan Division
+      MACC:           Metropolitan Area Central City
+      MEMI:           Metropolitan/Micropolitan Indicator Flag
+      NECTA:          New England City and Town Area
+      CNECTA:         New England City and Town Combined Statistical Area
+      NECTADIV:       New England City and Town Area Division
+      UA:             Urban Area
+      CDCURR:         Current Congressional District ***
+      SLDU:           State Legislative District Upper
+      SLDL:           State Legislative District Lower
+      ZCTA3:          ZIP Code Tabulation Area (3-digit)
+      ZCTA5:          5-digit ZIP Code Tabulation Area
+      SUBMCD:         Subminor Civil Division (FIPS)
+      SDELM:          State-School District (Elementary)
+      SDSEC:          State-School District (Secondary)
+      SDUNI:          State-School District (Unified)
+      UR:             Urban/Rural
+      PCI:            Principal City Indicator
+      PUMA5:          Public Use Microdata Area – File
+      GEO_ID:         Geographic Identifier
+      NAME:           Area Name
+      BTTR:           Tribal Tract
+      BTBG:           Tribal Block Group
+      PLACESE:        Place (State FIPS + Place FIPS)
+      A00001_001:     Total Population
+      A00002_001:     Total Population
+      A00002_002:     Population Density (Per Sq. Mile)
+      A00002_003:     Area (Land)
+      A02001_001:     Total Population:
+      A02001_002:     Total Population: Male
+      A02001_003:     Total Population: Female
+      A01001_001:     Total Population:
+      A01001_002:     Total Population: Under 5 Years
+      A01001_003:     Total Population: 5 to 9 Years
+      A01001_004:     Total Population: 10 to 14 Years
+      A01001_005:     Total Population: 15 to 17 Years
+      A01001_006:     Total Population: 18 to 24 Years
+      A01001_007:     Total Population: 25 to 34 Years
+      A01001_008:     Total Population: 35 to 44 Years
+      A01001_009:     Total Population: 45 to 54 Years
+      A01001_010:     Total Population: 55 to 64 Years
+      A01001_011:     Total Population: 65 to 74 Years
+      A01001_012:     Total Population: 75 to 84 Years
+      A01001_013:     Total Population: 85 Years and Over
+      A01004_001:     Median Age:
+      A01004_002:     Median Age: Male Population
+      A01004_003:     Median Age: Female Population
+      A03001_001:     Total Population:
+      A03001_002:     Total Population: White Alone
+      A03001_003:     Total Population: Black or African American Alone
+      A03001_004:     Total Population: American Indian and Alaska Native Alone
+      A03001_005:     Total Population: Asian Alone
+      A03001_006:     Total Population: Native Hawaiian and Other Pacific Islander Alone
+      A03001_007:     Total Population: Some Other Race Alone
+      A03001_008:     Total Population: Two or More Races
+      A04001_001:     Total Population
+      A04001_002:     Total Population: Not Hispanic or Latino
+      A04001_003:     Total Population: Not Hispanic or Latino: White Alone
+      A04001_004:     Total Population: Not Hispanic or Latino: Black or African American Alone
+      A04001_005:     Total Population: Not Hispanic or Latino: American Indian and Alaska Native Alone
+      A04001_006:     Total Population: Not Hispanic or Latino: Asian Alone
+      A04001_007:     Total Population: Not Hispanic or Latino: Native Hawaiian and Other Pacific Islander Alone
+      A04001_008:     Total Population: Not Hispanic or Latino: Some Other Race Alone
+      A04001_009:     Total Population: Not Hispanic or Latino: Two or More Races
+      A04001_010:     Total Population: Hispanic or Latino
+      A04001_011:     Total Population: Hispanic or Latino: White Alone
+      A04001_012:     Total Population: Hispanic or Latino: Black or African American Alone
+      A04001_013:     Total Population: Hispanic or Latino: American Indian and Alaska Native Alone
+      A04001_014:     Total Population: Hispanic or Latino: Asian Alone
+      A04001_015:     Total Population: Hispanic or Latino: Native Hawaiian and Other Pacific Islander Alone
+      A04001_016:     Total Population: Hispanic or Latino: Some Other Race Alone
+      A04001_017:     Total Population: Hispanic or Latino: Two or More Races
+      A10008_001:     Households:
+      A10008_002:     Households: Family Households
+      A10008_003:     Households: Family Households: Married-Couple Family
+      A10008_004:     Households: Family Households: Other Family
+      A10008_005:     Households: Family Households: Other Family: Male Householder, No Wife Present
+      A10008_006:     Households: Family Households: Other Family: Female Householder, No Husband Present
+      A10008_007:     Households: Nonfamily Households
+      A10008_008:     Households: Nonfamily Households: Male Householder
+      A10008_009:     Households: Nonfamily Households: Female Householder
+      A11001_001:     Population 15 Years and Over:
+      A11001_002:     Population 15 Years and Over: Never Married
+      A11001_003:     Population 15 Years and Over: Now Married (Not Including Separated)
+      A11001_004:     Population 15 Years and Over: Separated
+      A11001_005:     Population 15 Years and Over: Widowed
+      A11001_006:     Population 15 Years and Over: Divorced
+      A12001_001:     Population 25 Years and Over:
+      A12001_002:     Population 25 Years and Over: Less than High School
+      A12001_003:     Population 25 Years and Over: High School Graduate or More (Includes Equivalency)
+      A12001_004:     Population 25 Years and Over: Some College or More
+      A12001_005:     Population 25 Years and Over: Bachelor's Degree or More
+      A12001_006:     Population 25 Years and Over: Master's Degree or More
+      A12001_007:     Population 25 Years and Over: Professional School Degree or More
+      A12001_008:     Population 25 Years and Over: Doctorate Degree
+      A12003_001:     Civilian Population 16 to 19 Years:
+      A12003_002:     Civilian Population 16 to 19 Years: Not High School Graduate, Not Enrolled (Dropped Out)
+      A12003_003:     Civilian Population 16 to 19 Years: High School Graduate, or Enrolled (In School)
+      A14006_001:     Median Household Income (In 2023 Inflation Adjusted Dollars)
+      A10001_001:     Housing Units
+      A10060_001:     Occupied Housing Units:
+      A10060_002:     Occupied Housing Units: Owner Occupied
+      A10060_003:     Occupied Housing Units: Renter Occupied
+      A10044_001:     Housing Units:
+      A10044_002:     Housing Units: Occupied
+      A10044_003:     Housing Units: Vacant
+      A10047_001:     Vacant Housing Units:
+      A10047_002:     Vacant Housing Units: For Rent
+      A10047_003:     Vacant Housing Units: For Sale Only
+      A10047_004:     Vacant Housing Units: Other Vacant
+      A10032_001:     Housing Units:
+      A10032_002:     Housing Units: 1 Unit
+      A10032_003:     Housing Units: 1 Unit: 1, Detached
+      A10032_004:     Housing Units: 1 Unit: 1, Attached
+      A10032_005:     Housing Units: 2
+      A10032_006:     Housing Units: 3 or 4
+      A10032_007:     Housing Units: 5 to 9
+      A10032_008:     Housing Units: 10 to 19
+      A10032_009:     Housing Units: 20 to 49
+      A10032_010:     Housing Units: 50 or More
+      A10032_011:     Housing Units: Mobile Home
+      A10032_012:     Housing Units: Boat, Rv, Van, Etc.
+      A10057_001:     Median Year Structure Built
+      A10034_001:     Occupied Housing Units:
+      A10034_002:     Occupied Housing Units: Gas (Utility, Bottled, Tank, or Lp Gas)
+      A10034_003:     Occupied Housing Units: Electricity
+      A10034_004:     Occupied Housing Units: Fuel Oil, Kerosene, Etc.
+      A10034_005:     Occupied Housing Units: Coal, Coke or Wood
+      A10034_006:     Occupied Housing Units: Solar Energy
+      A10034_007:     Occupied Housing Units: Other Fuel
+      A10034_008:     Occupied Housing Units: No Fuel Used
+      A10036_001:     Median Value
+      A18009_001:     Median Gross Rent
+      A18003_001:     Median Gross Rent as a Percentage of Household  Income in the Past 12 Months (Dollars)
+      A10037_001:     Median Selected Monthly Owner Costs as a Percentage of Household Income:
+      A10037_002:     Median Selected Monthly Owner Costs as a Percentage of Household Income: Housing Units with a Mortgage
+      A10037_003:     Median Selected Monthly Owner Costs as a Percentage of Household Income: Housing Units Without a Mortgage
+      A13002_001:     Families:
+      A13002_002:     Families: Income Below Poverty Level
+      A13002_003:     Families: Income Below Poverty Level: Married Couple Family: with Related Child Living  Below Poverty Level
+      A13002_004:     Families: Income Below Poverty Level: Married Couple Family: No Related Children Under 18 Years
+      A13002_005:     Families: Income Below Poverty Level: Male Householder, No Wife Present
+      A13002_006:     Families: Income Below Poverty Level: Male Householder, No Wife Present: With Related Children Under 18 Years
+      A13002_007:     Families: Income Below Poverty Level: Male Householder, No Wife Present: No Related Children Under 18 Years
+      A13002_008:     Families: Income Below Poverty Level: Female Householder, No Husband Present
+      A13002_009:     Families: Income Below Poverty Level: Female Householder, No Husband Present: With Related Children Under 18 Years
+      A13002_010:     Families: Income Below Poverty Level: Female Householder, No Husband Present: No Related Children Under 18 Years
+      A13002_011:     Families: Income At or Above Poverty Level
+      A13004_001:     Population for Whom Poverty Status Is Determined:
+      A13004_002:     Population for Whom Poverty Status Is Determined: Under .50
+      A13004_003:     Population for Whom Poverty Status Is Determined: .50 to .74
+      A13004_004:     Population for Whom Poverty Status Is Determined: .75 to .99
+      A13004_005:     Population for Whom Poverty Status Is Determined: 1.00 to 1.49
+      A13004_006:     Population for Whom Poverty Status Is Determined: 1.50 to 1.99
+      A13004_007:     Population for Whom Poverty Status Is Determined: 2.00 and Over
+      B13004_001:     Population for Whom Poverty Status Is Determined:
+      B13004_002:     Population for Whom Poverty Status Is Determined: Under 1.00 (Doing Poorly)
+      B13004_003:     Population for Whom Poverty Status Is Determined: 1.00 to 1.99 (Struggling)
+      B13004_004:     Population for Whom Poverty Status Is Determined: Under 2.00 (Poor or Struggling)
+      B13004_005:     Population for Whom Poverty Status Is Determined: 2.00 and Over (Doing Ok)
+      A06001_001:     Total Population:
+      A06001_002:     Total Population: Native Born
+      A06001_003:     Total Population: Foreign Born
+      A06001_004:     Total Population: Foreign Born: Naturalized Citizen
+      A06001_005:     Total Population: Foreign Born: Not a Citizen
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2025
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R13858346
+
+If you have any questions contact info@socialexplorer.com
