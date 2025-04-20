@@ -19,62 +19,56 @@ async function addNeighborhoodLayer() {
         if (!response.ok) throw new Error('Failed to load NYC neighborhoods GeoJSON');
         const geojsonData = await response.json();
 
-        // Check if the source already exists
-        if (!map.getSource('nyc-neighborhoods')) {
-            map.addSource('nyc-neighborhoods', {
-                type: 'geojson',
-                data: geojsonData
-            });
-        }
+        // Add the GeoJSON source to the map
+        map.addSource('nyc-neighborhoods', {
+            type: 'geojson',
+            data: geojsonData
+        });
 
-        // Add the fill layer if it doesn't exist
-        if (!map.getLayer('nyc-neighborhoods-fill')) {
-            map.addLayer({
-                id: 'nyc-neighborhoods-fill',
-                type: 'fill',
-                source: 'nyc-neighborhoods',
-                paint: {
-                    'fill-color': [
-                        'interpolate',
-                        ['linear'],
-                        ['get', 'pop_to_rest_ratio'],
-                        3, '#f7f7f7',
-                        183, '#d9d9d9',
-                        491, '#bdbdbd',
-                        854, '#969696',
-                        1282.25, '#636363',
-                        1914, '#252525',
-                        6623, '#000000'
-                    ],
-                    'fill-opacity': 0.9
-                },
-                layout: {
-                    visibility: 'none'
-                },
-                filter: [
-                    'all',
-                    ['>', ['get', 'pop_to_rest_ratio'], 0],
-                    ['has', 'pop_to_rest_ratio']
-                ]
-            });
-        }
+        // Add a fill layer to display the neighborhoods
+        map.addLayer({
+            id: 'nyc-neighborhoods-fill',
+            type: 'fill',
+            source: 'nyc-neighborhoods',
+            paint: {
+                'fill-color': [
+                    'interpolate',
+                    ['linear'],
+                    ['get', 'pop_to_rest_ratio'], // Access the pop_to_rest_ratio property
+                    3, '#f7f7f7', // Very light grey for the minimum value
+                    183, '#d9d9d9', // Light grey for the 10th percentile
+                    491, '#bdbdbd', // Medium-light grey for the 25th percentile
+                    854, '#969696', // Medium grey for the 50th percentile
+                    1282.25, '#636363', // Dark grey for the 75th percentile
+                    1914, '#252525', // Very dark grey for the 90th percentile
+                    6623, '#000000' // Black for the maximum value
+                ],
+                'fill-opacity': 0.9 // Semi-transparent
+            },
+            layout: {
+                visibility: 'none' // Initially hide the layer
+            },
+            filter: [
+                'all',
+                ['>', ['get', 'pop_to_rest_ratio'], 0], // Exclude neighborhoods with a ratio of 0
+                ['has', 'pop_to_rest_ratio'] // Exclude neighborhoods with no value
+            ]
+        });
 
-        // Add the outline layer if it doesn't exist
-        if (!map.getLayer('nyc-neighborhoods-outline')) {
-            map.addLayer({
-                id: 'nyc-neighborhoods-outline',
-                type: 'line',
-                source: 'nyc-neighborhoods',
-                paint: {
-                    'line-color': 'white',
-                    'line-width': 0.1,
-                    'line-opacity': 0.5
-                },
-                layout: {
-                    visibility: 'none'
-                }
-            });
-        }
+        // Add a line layer to outline the neighborhoods
+        map.addLayer({
+            id: 'nyc-neighborhoods-outline',
+            type: 'line',
+            source: 'nyc-neighborhoods',
+            paint: {
+                'line-color': 'white', // grey outline
+                'line-width': 0.1,
+                'line-opacity': 0.5  // Semi-transparent
+            },
+            layout: {
+                visibility: "none" // Initially hidden
+            }
+        });
 
         // Add a click event listener to the fill layer
         map.on('click', 'nyc-neighborhoods-fill', (e) => {
