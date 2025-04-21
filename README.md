@@ -35,14 +35,14 @@ This project is created to:
 
 1. **NYC Neighborhood GeoJSON**
 
-   - File: <"nyc_nta_2020_pop+food.geojson">
+   - File: "nyc_nta_2020_pop+food.geojson"
    - 2022 5-year Amercian Community Survey (ACS)
    - 2020 Neighborhood Tabulation Areas (NTA)
    - restaurant data see below
 
 2. **Restaurant Data**
 
-   - File: <"filtered_restaurants.json">
+   - File: "filtered_restaurants.json"
    - Google Places API on April 1, 2025
    - Contains detailed information about restaurants, including:
       - Name
