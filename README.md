@@ -56,7 +56,7 @@ This project is created to:
       - Whether it has a restroom or not
 
    - **Total Unique Restaurants**: 21,891
-   
+
       **Primary Types by Geography**
 
       | Cuisine Type              | Count       |
@@ -129,27 +129,24 @@ This project is created to:
 
 ### Frontend
 
--**HTML**: Structure of the website
--**CSS**:Styling for the website, including responsive design.
--**JavaScript**:Core functionality for interactivity and data visualization.
+- **HTML**: Structure of the website
+- **CSS**:Styling for the website, including responsive design.
+- **JavaScript**:Core functionality for interactivity and data visualization.
 
 ### Mapping
 
--**Mapbox GL JS**:
-   -Used for rendering the interactive map.
-   -Provides layers for neighborhoods and restaurant markers.
-   -Enables dynamic popups and hover effects.
+- **Mapbox GL JS**:
+  - Used for rendering the interactive map.
+  - Provides layers for neighborhoods and restaurant markers.
+  - Enables dynamic popups and hover effects.
 
 ### Data Processing
 
--**GeoJSON:**:
-
-   -Used for geospatial data visualization.
-   -Displays NYC neighborhoods with population-to-restaurant ratios.
-
--**JSON**:
-
-   -Used for restaurant and cuisine type data.
+- **GeoJSON:**:
+  - Used for geospatial data visualization.
+  - Displays NYC neighborhoods with population-to-restaurant ratios.
+- **JSON**:
+  - Used for restaurant and cuisine type data.
 
 --
 
