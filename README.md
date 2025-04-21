@@ -38,7 +38,7 @@ This project is created to:
    - 2022 5-year Amercian Community Survey (ACS)
    - 2020 Neighborhood Tabulation Areas (NTA)
    - restaurant data see below
-
+   
 2. **Restaurant Data**
    - File: "filtered_restaurants.json"
    - Google Places API on April 1, 2025
