@@ -6,7 +6,7 @@ The **NYC Food Map** is an interactive web application designed to explore the f
 
 This web map serves at the first step in a larger research project that examines the spatial distribution of restaurants in relations with certain characteristics of New York City's neighborhoods. (e.g. %foreign-born, %female,%white, place of birth, ancestry, average gross rent, average gross income)
 
----
+--
 
 ## Why Does this Project Exist?
 
@@ -19,7 +19,7 @@ This project is created to:
 
 2. Allow users to filter and explore restaurants based on their preferences, such as cusiine type, price level, and ratings.
 
----
+--
 
 ## Features
 
@@ -29,28 +29,32 @@ This project is created to:
 - **Legend**: A legend explains the color gradient for population-to-restaurant ratios.
 - **Responsive Design**: The website is optimized for both desktop and mobile devices.
 
----
+--
 
 ## Data Source
 
 1. **NYC Neighborhood GeoJSON**
-   -File: <nyc_nta_2020_pop+food.geojson>
-   -2022 5-year Amercian Community Survey (ACS)
-   -2020 Neighborhood Tabulation Areas (NTA)
-   -restaurant data see below
+
+   - File: <"nyc_nta_2020_pop+food.geojson">
+   - 2022 5-year Amercian Community Survey (ACS)
+   - 2020 Neighborhood Tabulation Areas (NTA)
+   - restaurant data see below
+
 2. **Restaurant Data**
-   -File: <filtered_restaurants.json>
-   -Google Places API on April 1, 2025
-   -Contains detailed information about restaurants, including:
-      -Name
-      -Location (latitude and longitude)
-      -Price level (Very Expensive, Expensive, Moderate, Inexpensive)
-      -Primary type (only 1 per restaurant)
-      -Sub-types (1 or more per restaurant)
-      -Overall Rating (out of 5)
-      -Number of Reviews
-      -Text of top 5 Reviews
-      -Whether it has a restroom or not
+
+   - File: <"filtered_restaurants.json">
+   - Google Places API on April 1, 2025
+   - Contains detailed information about restaurants, including:
+      - Name
+      - Location (latitude and longitude)
+      - Price level (Very Expensive, Expensive, Moderate, Inexpensive)
+      - Primary type (only 1 per restaurant)
+      - Sub-types (1 or more per restaurant)
+      - Overall Rating (out of 5)
+      - Number of Reviews
+      - Text of top 5 Reviews
+      - Whether it has a restroom or not
+
    - **Total Unique Restaurants**: 21,891
       **Primary Types by Geography**
 
@@ -119,7 +123,6 @@ This project is created to:
       | Vegetarian Restaurant  | 35         |
       | Wine Bar               | 77         |
 
----
 
 ## Technologies Used
 
@@ -139,38 +142,41 @@ This project is created to:
 ### Data Processing
 
 -**GeoJSON:**:
+
    -Used for geospatial data visualization.
    -Displays NYC neighborhoods with population-to-restaurant ratios.
+
 -**JSON**:
+
    -Used for restaurant and cuisine type data.
 
----
+--
 
 ## How It Works
 
 1. Map Initialization:
-   -The map is initialized using Mapbox GL JS with a dark theme.
-   -The center is set to NYC with an appropriate zoom level.
+   - The map is initialized using Mapbox GL JS with a dark theme.
+   - The center is set to NYC with an appropriate zoom level.
 2. Neighborhood Layer:
-   -A GeoJSON layer is added to display NYC neighborhoods.
-   -Neighborhoods are color-coded based on the population-to-restaurant ratio using a gradient from light grey to black.
+   - A GeoJSON layer is added to display NYC neighborhoods.
+   - Neighborhoods are color-coded based on the population-to-restaurant ratio using a gradient from light grey to black.
 3. Restaurant Markers:
-   -Restaurants are displayed as markers with emojis representing their primary type.
-   -Markers are dynamically filtered based on user-selected criteria.
+   - Restaurants are displayed as markers with emojis representing their primary type.
+   - Markers are dynamically filtered based on user-selected criteria.
 4. Filters:
-   -Users can filter restaurants by:
+   - Users can filter restaurants by:
       -Primary and secondary type by Geography (e.g., Italian, Chinese etc.) or Food/Drink served (e.g., Pizza, Vegan, Bar etc.).
       -Price level (e.g., $, $$, $$$).
       -Ratings (e.g., ⭐⭐⭐⭐).
-   -Filters dynamically update the markers on the map.
+   - Filters dynamically update the markers on the map.
       -Restaurants which primary type matches the filter selection are shown with bigger markers
       -Restaurants which sub-types contains the filter selection are shown with smaller markers.
       -The number of restaurants which primary type/sub-type matches the filter selection.
 5. Legend:
-   -A legend explains the color gradient for population-to-restaurant ratios.
-   -Users can toggle the visibility of the neighborhood layer.
+   - A legend explains the color gradient for population-to-restaurant ratios.
+   - Users can toggle the visibility of the neighborhood layer.
 
----
+--
 
 ## How to Run the Project
 
@@ -180,7 +186,7 @@ This project is created to:
 2. Explore the map:
 "<https://ranim0823.github.io/class_4_geojson>"
 
----
+--
 
 ## Future Enhancements
 
