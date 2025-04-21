@@ -56,6 +56,7 @@ This project is created to:
       - Whether it has a restroom or not
 
    - **Total Unique Restaurants**: 21,891
+   
       **Primary Types by Geography**
 
       | Cuisine Type              | Count       |
