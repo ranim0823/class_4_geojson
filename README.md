@@ -34,14 +34,12 @@ This project is created to:
 ## Data Source
 
 1. **NYC Neighborhood GeoJSON**
-
    - File: "nyc_nta_2020_pop+food.geojson"
    - 2022 5-year Amercian Community Survey (ACS)
    - 2020 Neighborhood Tabulation Areas (NTA)
    - restaurant data see below
 
 2. **Restaurant Data**
-
    - File: "filtered_restaurants.json"
    - Google Places API on April 1, 2025
    - Contains detailed information about restaurants, including:
@@ -54,7 +52,6 @@ This project is created to:
       - Number of Reviews
       - Text of top 5 Reviews
       - Whether it has a restroom or not
-
    - **Total Unique Restaurants**: 21,891
 
       **Primary Types by Geography**
