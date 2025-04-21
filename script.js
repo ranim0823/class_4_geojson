@@ -400,8 +400,8 @@ function addMarkers(restaurants, selectedFilter, selectedPrices) {
         el.innerHTML = getEmojiForCuisine(restaurant.primary_type); // Use emoji for primary_type
 
         // Apply styles based on match type
-        if (isPrimaryMatch || isPriceMatch) {
-            el.style.fontSize = '15px'; // Much larger size for primary matches or price matches
+        if (isPrimaryMatch) {
+            el.style.fontSize = '15px'; // Much larger size for primary matches 
             el.style.opacity = '1'; // Fully opaque for matches
         } else {
             el.style.fontSize = '6px'; // Way smaller size for non-matches
