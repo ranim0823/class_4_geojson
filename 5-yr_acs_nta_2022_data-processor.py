@@ -4,7 +4,7 @@ from shapely.geometry import Point
 
 # File paths
 nta_geojson_file = "class_4_geojson/nyc_nta_2020.geojson"
-restaurants_json_file = "class_4_geojson/filtered_restaurants.json"
+restaurants_json_file = "class_4_geojson/restaurants_filtered.json"
 acs_geojson_file = "class_4_geojson/nyc_nta_2020_acs_5y_2022.geojson"
 output_file = "class_4_geojson/nyc_nta_2020_pop+food.geojson"
 
@@ -88,3 +88,59 @@ def main():
 # Run the script
 if __name__ == "__main__":
     main()
+
+### Analyze the Distribution of pop_to_rest_ratio
+import geopandas as gpd
+
+# Load the GeoJSON file
+file_path = "class_4_geojson/nyc_nta_2020_pop+food.geojson"
+gdf = gpd.read_file(file_path)
+
+# Filter out rows with pop_to_rest_ratio <= 0
+gdf = gdf[gdf["pop_to_rest_ratio"] > 0]
+
+# Calculate percentiles
+percentiles = gdf["pop_to_rest_ratio"].quantile([0.1, 0.25, 0.5, 0.75, 0.9, 1.0])
+print("Percentiles:")
+print(percentiles)
+
+# Calculate min, max, and mean
+min_value = gdf["pop_to_rest_ratio"].min()
+max_value = gdf["pop_to_rest_ratio"].max()
+mean_value = gdf["pop_to_rest_ratio"].mean()
+
+print(f"Min: {min_value}, Max: {max_value}, Mean: {mean_value}")
+
+### Analyze the Distribution of overall_rating from filtered_restaurants.json
+import json
+import numpy as np
+import pandas as pd
+
+# File path
+restaurants_json_file = "class_4_geojson/restaurants_filtered.json"
+
+# Load the restaurant dataset
+with open(restaurants_json_file, "r") as f:
+    restaurants_data = json.load(f)
+
+# Extract overall_rating values and convert to float
+ratings = [
+    float(restaurant["overall_rating"])
+    for restaurant in restaurants_data
+    if "overall_rating" in restaurant and restaurant["overall_rating"] not in [None, ""]
+]
+
+# Convert to a Pandas Series for analysis
+ratings_series = pd.Series(ratings)
+
+# Calculate percentiles
+percentiles = ratings_series.quantile([0.1, 0.25, 0.5, 0.75, 0.9, 1.0])
+print("Percentiles:")
+print(percentiles)
+
+# Calculate min, max, and mean
+min_value = ratings_series.min()
+max_value = ratings_series.max()
+mean_value = ratings_series.mean()
+
+print(f"Min: {min_value}, Max: {max_value}, Mean: {mean_value}")

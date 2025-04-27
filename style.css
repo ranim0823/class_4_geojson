@@ -1,48 +1,73 @@
 /* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     color: #333;
     line-height: 1.6;
+    background-color: #f9f9f9;
+}
+
+/* Layout Container */
+.container {
+    display: flex;
+    height: calc(100vh - 136px);
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 /* Header Styles */
 header {
+    position: fixed;
+    width: 100%;
+    top: 0;
     background-color: #000000;
     color: white;
-    padding: 15px 0;
+    z-index: 1000;
+    padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 10px;
     text-align: center;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.2em;
+    font-size: 1.5em;
 }
 
 header p {
     margin: 5px 0 0;
-    font-size: 1.1em;
+    font-size: 1.0em;
     opacity: 0.9;
-}
-
-/* Main Container */
-.container {
-    display: flex;
-    height: calc(100vh - 136px);
 }
 
 /* Map Styles */
 #map {
-    flex: 1;
-    height: 100%;
+    position: absolute;
+    top: 60px; /* Adjusted to match the height of the header */
+    bottom: 40px; /* Adjusted to match the height of the footer */
+    left: 0;
+    right: 0;
+    height: auto; /* Allow the height to adjust dynamically */
+    width: 100%; /* Full width */
+    z-index: 1;
 }
 
 .mapboxgl-popup {
@@ -51,36 +76,46 @@ header p {
 
 /* Style for the neighborhood pop-up */
 .neighborhood-popup .mapboxgl-popup-content {
-    white-space: nowrap; /* Prevent text wrapping */
-    overflow: hidden; /* Hide overflow if the content exceeds the width */
-    text-overflow: ellipsis; /* Add ellipsis if the content is too long */
-    font-family: Arial, sans-serif; /* Use a clean font */
-    font-size: 14px; /* Adjust font size */
-    padding: 10px; /* Add padding for better readability */
-    background-color: #f8f9fa; /* Light background */
-    color: #212529; /* Dark text */
-    border: 1px solid #6c757d; /* Gray border */
-    border-radius: 5px; /* Rounded corners */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    color: #212529;
+    border: 1px solid #6c757d;
+    border-radius: 5px;
+    max-width: 300px;
 }
 
 /* Restaurant popup styles */
 .restaurant-popup .mapboxgl-popup-content {
-    background-color: #212529; /* Dark background */
-    color: #f8f9fa; /* Light text */
-    border: 2px solid #ffc107; /* Yellow border */
+    background-color: #212529;
+    color: #f8f9fa;
+    border: 2px solid #ffc107;
     font-family: 'Courier New', Courier, monospace;
     font-size: 12px;
     padding: 8px;
+    max-width: 250px;
 }
 
 /* Sidebar Styles */
 #sidebar {
-    width: 350px;
+    position: fixed;
+    top: 80px;
+    bottom: 40px;
+    left: 0;
+    width: 300px;
+    height: calc(100% - 120px); /* Adjusted for header and footer */
     background-color: #f8f9fa;
+    color: #333;
     overflow-y: auto;
-    border-right: 1px solid #ddd;
+    z-index: 800;
     display: flex;
     flex-direction: column;
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-header {
@@ -95,17 +130,36 @@ header p {
 .sidebar-header h2 {
     margin: 0 0 10px 0;
     font-size: 1.3em;
-    color: black !important;
+    color: #000 !important;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #457b9d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+.sidebar-toggle:hover {
+    background-color: #1d3557;
 }
 
 .filter-controls {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+    flex-wrap: wrap;
 }
 
 .filter-controls button {
     flex: 1;
+    min-width: 120px;
     padding: 8px;
     background-color: #457b9d;
     color: white;
@@ -113,6 +167,7 @@ header p {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9em;
+    transition: background-color 0.3s;
 }
 
 .filter-controls button:hover {
@@ -123,7 +178,9 @@ header p {
 #filters-container {
     padding: 15px;
     flex-grow: 1;
-    overflow-y: auto;
+    overflow-y: auto; /* Enable vertical scrolling */
+    box-sizing: border-box; /* Ensure padding is included in the height calculation */
+    max-height: calc(100% - 15px); /* Ensure the container height accounts for padding */
 }
 
 .filter-group {
@@ -156,20 +213,23 @@ header p {
     cursor: pointer;
     font-size: 0.95em;
     flex-grow: 1;
-    color: black !important;
+    color: #000 !important;
 }
 
+/* Legend Styles */
 .map-legend {
     position: absolute;
-    bottom: 45px;
+    bottom: 60px;
     right: 5px;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
-    font-size: 11px;
+    font-size: 14px;
     z-index: 1000;
+    max-width: 200px;
 }
 
 .map-legend h3 {
@@ -185,52 +245,152 @@ header p {
 }
 
 .legend-item span {
-    margin-right: 10px;
-    border-radius: 2px;
-}
-
-/* Legend items */
-.map-legend div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px; /* Add spacing between legend items */
-}
-
-/* Legend color boxes */
-.map-legend span {
-    display: inline-block;
-    border: #dadfe3; /* Gray border */
-    border-width: 0.5px; /* Thin border */
-    width: 20px; /* Make the color boxes bigger */
-    height: 15px; /* Make the color boxes bigger */
-    margin-right: 10px; /* Add spacing between the box and text */
-    border-radius: 2px; /* Rounded corners for the color boxes */
+    display: inline-block; /* Ensure the span is treated as a block for dimensions */
+    width: 20px; /* Set a fixed width for the color box */
+    height: 20px; /* Set a fixed height for the color box */
+    margin-right: 10px; /* Add spacing between the color box and the label */
+    border-radius: 2px; /* Optional: Add rounded corners */
+    border: 1px solid #000; /* Add a border to make the color box more visible */
 }
 
 /* Footer Styles */
 footer {
     background-color: #000000;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    position: fixed;
     color: white;
     text-align: center;
     padding: 12px 0;
-    font-size: 0.85em;
+    font-size: 0.65em;
+    z-index: 900;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        height: auto;
-    }
-
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
     #sidebar {
-        width: 100%;
-        max-height: 40vh;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
+        width: 250px;
     }
-
-    #map {
-        height: 60vh;
+    
+    .container {
+        height: calc(100vh - 150px);
     }
 }
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    header p {
+        font-size: 0.95em;
+    }
+    
+    #sidebar {
+        transform: translateX(-100%);
+        width: 280px;
+        height: calc(100% - 196px);
+    }
+    
+    #sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .container {
+        height: calc(100vh - 136px);
+        margin-left: 0;
+    }
+    
+    .map-legend {
+        bottom: 70px;
+        right: 10px;
+        font-size: 10px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        padding: 0 10px;
+    }
+    
+    header h1 {
+        font-size: 1.5em;
+    }
+    
+    header p {
+        font-size: 0.85em;
+    }
+    
+    .map-legend {
+        max-width: 150px;
+        padding: 8px;
+    }
+    
+    .neighborhood-popup .mapboxgl-popup-content,
+    .restaurant-popup .mapboxgl-popup-content {
+        font-size: 11px;
+        padding: 6px;
+    }
+}
+
+/* Portrait mode adjustments */
+@media (max-aspect-ratio: 1/1) {
+    #sidebar {
+        position: fixed; /* Ensure the sidebar stays fixed */
+        top: auto; /* Remove the top positioning */
+        bottom: 0; /* Align the sidebar to the bottom */
+        left: 0;
+        width: 100%; /* Full width for horizontal layout */
+        height: 200px; /* Fixed height for the bottom layout */
+        transform: translateY(0); /* Ensure it's visible */
+        display: flex; /* Flexbox for layout */
+        flex-direction: row; /* Horizontal layout */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        overflow-y: hidden; /* Disable vertical scrolling */
+        z-index: 800; /* Ensure it's above the map but below the header */
+    }
+
+    .sidebar-header {
+        flex: 0 0 30%; /* Sidebar header takes up 50% of the width */
+        padding: 15px;
+        background-color: #fff;
+        position: sticky; /* Keeps the header visible in the horizontal layout */
+        top: 0;
+        z-index: 10;
+        border-right: 1px solid #ddd; /* Add a divider between the header and filters */
+        box-sizing: border-box;
+    }
+
+    .container {
+        height: calc(100vh - 200px); /* Adjust content height to account for the sidebar */
+        flex: 1; /* Allow the map to take up remaining space */
+        padding: 15px; /* Add padding for aesthetics */
+        overflow-y: auto; /* Allow vertical scrolling */
+    }
+
+    .map-legend {
+        bottom: 220px; /* Adjust legend position to stay above the sidebar */
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.p-1 { padding: 1rem; }
+.p-2 { padding: 2rem; }

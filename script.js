@@ -12,6 +12,11 @@ const map = new mapboxgl.Map({
     zoom: 9.5
 });
 
+// Ensure the map resizes properly on window resize
+window.addEventListener('resize', () => {
+    map.resize();
+});
+
 // Add NYC neighborhoods base layer
 async function addNeighborhoodLayer() {
     try {
@@ -36,12 +41,12 @@ async function addNeighborhoodLayer() {
                     ['linear'],
                     ['get', 'pop_to_rest_ratio'], // Access the pop_to_rest_ratio property
                     3, '#f7f7f7', // Very light grey for the minimum value
-                    183, '#d9d9d9', // Light grey for the 10th percentile
-                    491, '#bdbdbd', // Medium-light grey for the 25th percentile
-                    854, '#969696', // Medium grey for the 50th percentile
-                    1282.25, '#636363', // Dark grey for the 75th percentile
-                    1914, '#252525', // Very dark grey for the 90th percentile
-                    6623, '#000000' // Black for the maximum value
+                    143, '#d9d9d9', // Light grey for the 10th percentile
+                    350, '#bdbdbd', // Medium-light grey for the 25th percentile
+                    565, '#969696', // Medium grey for the 50th percentile
+                    769.25, '#636363', // Dark grey for the 75th percentile
+                    988, '#252525', // Very dark grey for the 90th percentile
+                    5394, '#000000' // Black for the maximum value
                 ],
                 'fill-opacity': 0.9 // Semi-transparent
             },
@@ -74,7 +79,7 @@ async function addNeighborhoodLayer() {
         map.on('click', 'nyc-neighborhoods-fill', (e) => {
             const properties = e.features[0].properties;
             const coordinates = e.lngLat;
-        
+
             // Highlight the clicked polygon by increasing the border width
             map.setPaintProperty('nyc-neighborhoods-outline', 'line-width', [
                 'case',
@@ -82,7 +87,7 @@ async function addNeighborhoodLayer() {
                 3, // Bolden the border for the clicked polygon
                 1  // Default border width for others
             ]);
-        
+
             // Format the population-to-restaurant ratio
             const popToRestRatio = properties.pop_to_rest_ratio
                 ? `<strong>${properties.pop_to_rest_ratio}</strong> Peoples per Restaurant`
@@ -103,7 +108,7 @@ async function addNeighborhoodLayer() {
             document.body.appendChild(tempDiv);
             const calculatedWidth = tempDiv.offsetWidth + 20; // Add padding
             document.body.removeChild(tempDiv);
-        
+
             // Create a popup with a unique class for neighborhoods
             new mapboxgl.Popup({ className: 'neighborhood-popup' })
                 .setLngLat(coordinates)
@@ -151,7 +156,7 @@ function processRestaurantData(rawData) {
         const primaryType = restaurant.primary_type;
 
         if (primaryType) {
-            primaryTypes.add(primaryType);
+            primaryTypes.add(primaryType); // Ensure all primary types are added
             if (restaurant.price_level) {
                 priceLevels.add(restaurant.price_level);
             }
@@ -179,7 +184,8 @@ function processRestaurantData(rawData) {
                     rating: parseFloat(restaurant.overall_rating),
                     review_count: parseInt(restaurant.user_rating_count),
                     price_level: restaurant.price_level,
-                    coordinates: [parseFloat(restaurant.longitude), parseFloat(restaurant.latitude)]
+                    coordinates: [parseFloat(restaurant.longitude), parseFloat(restaurant.latitude)],
+                    generative_summary: restaurant.generative_summary
                 };
             }
         }
@@ -203,81 +209,145 @@ function formatPrimaryType(type) {
 
 // Emoji mapping for primary types
 function getEmojiForCuisine(primaryType) {
-    // Special case for combined filter "coffee_cafe"
-    if (primaryType === 'coffee_cafe') {
-        return '☕️';
-    }
-
     // Geo-based emojis
     const geoEmojis = {
-        'american_restaurant': '🇺🇸',
-        'afghani_restaurant': '🇦🇫',
-        'african_restaurant': '🪘',
-        'asian_restaurant': '⛩️',
-        'brazilian_restaurant': '🇧🇷',
-        'chinese_restaurant': '🇨🇳',
-        'french_restaurant': '🇫🇷',
-        'greek_restaurant': '🇬🇷',
-        'indian_restaurant': '🇮🇳',
-        'indonesian_restaurant': '🇮🇩',
-        'italian_restaurant': '🇮🇹',
-        'japanese_restaurant': '🇯🇵',
-        'korean_restaurant': '🇰🇷',
-        'lebanese_restaurant': '🇱🇧',
-        'mediterranean_restaurant': '🫒',
-        'mexican_restaurant': '🇲🇽',
-        'middle_eastern_restaurant': '🥙',
-        'spanish_restaurant': '🇪🇸',
-        'thai_restaurant': '🇹🇭',
-        'turkish_restaurant': '🇹🇷',
-        'vietnamese_restaurant': '🇻🇳'
+        "afghani_restaurant": "🇦🇫",
+        "african_restaurant": "🌍",
+        "asian_restaurant": "🥢",
+        "albanian_restaurant": "🇦🇱",
+        "american_restaurant": "🇺🇸",
+        "argentine_restaurant": "🇦🇷",
+        "armenian_restaurant": "🇦🇲",
+        "australian_restaurant": "🇦🇺",
+        "austrian_restaurant": "🇦🇹",
+        "azerbaijani_restaurant": "🇦🇿",
+        "bangladeshi_restaurant": "🇧🇩",
+        "belgian_restaurant": "🇧🇪",
+        "bhutanese_restaurant": "🇧🇹",
+        "bolivian_restaurant": "🇧🇴",
+        "bosnian_restaurant": "🇧🇦",
+        "brazilian_restaurant": "🇧🇷",
+        "british_restaurant": "🇬🇧",
+        "burmese_restaurant": "🇲🇲",
+        "cambodian_restaurant": "🇰🇭",
+        "cantonese_restaurant": "🇭🇰",
+        "canadian_restaurant": "🇨🇦",
+        "caribbean_restaurant": "🌴",
+        "chinese_restaurant": "🇨🇳",
+        "colombian_restaurant": "🇨🇴",
+        "croatian_restaurant": "🇭🇷",
+        "cuban_restaurant": "🇨🇺",
+        "dominican_restaurant": "🇩🇴",
+        "ecuadorian_restaurant": "🇪🇨",
+        "egyptian_restaurant": "🇪🇬",
+        "eritrean_restaurant": "🇪🇷",
+        "ethiopian_restaurant": "🇪🇹",
+        "filipino_restaurant": "🇵🇭",
+        "french_restaurant": "🇫🇷",
+        "german_restaurant": "🇩🇪",
+        "ghanaian_restaurant": "🇬🇭",
+        "greek_restaurant": "🇬🇷",
+        "grenadian_restaurant": "🇬🇩",
+        "guatemalan_restaurant": "🇬🇹",
+        "guyanese_restaurant": "🇬🇾",
+        "haitian_restaurant": "🇭🇹",
+        "honduran_restaurant": "🇭🇳",
+        "indian_restaurant": "🇮🇳",
+        "indonesian_restaurant": "🇮🇩",
+        "iranian_restaurant": "🇮🇷",
+        "irish_restaurant": "🇮🇪",
+        "israeli_restaurant": "🇮🇱",
+        "italian_restaurant": "🇮🇹",
+        "ivorian_restaurant": "🇨🇮",
+        "jamaican_restaurant": "🇯🇲",
+        "japanese_restaurant": "🇯🇵",
+        "kazakh_restaurant": "🇰🇿",
+        "korean_restaurant": "🇰🇷",
+        "lebanese_restaurant": "🇱🇧",
+        "malaysian_restaurant": "🇲🇾",
+        "mediterranean_restaurant": "🌊",
+        "mexican_restaurant": "🇲🇽",
+        "middle_eastern_restaurant": "🕌",
+        "moroccan_restaurant": "🇲🇦",
+        "nepalese_restaurant": "🇳🇵",
+        "nigerian_restaurant": "🇳🇬",
+        "pakistani_restaurant": "🇵🇰",
+        "panamanian_restaurant": "🇵🇦",
+        "paraguayan_restaurant": "🇵🇾",
+        "peruvian_restaurant": "🇵🇪",
+        "persian_restaurant": "𓆃",
+        "polish_restaurant": "🇵🇱",
+        "portuguese_restaurant": "🇵🇹",
+        "romanian_restaurant": "🇷🇴",
+        "russian_restaurant": "🇷🇺",
+        "salvadoran_restaurant": "🇸🇻",
+        "senegalese_restaurant": "🇸🇳",
+        "serbian_restaurant": "🇷🇸",
+        "singaporean_restaurant": "🇸🇬",
+        "somali_restaurant": "🇸🇴",
+        "spanish_restaurant": "🇪🇸",
+        "sri lankan_restaurant": "🇱🇰",
+        "surinamese_restaurant": "🇸🇷",
+        "swedish_restaurant": "🇸🇪",
+        "tajik_restaurant": "🇹🇯",
+        "thai_restaurant": "🇹🇭",
+        "taiwanese_restaurant": "🇹🇼",
+        "tibetan_restaurant": "🏔",
+        "trinidadian_restaurant": "🇹🇹",
+        "turkish_restaurant": "🇹🇷",
+        "ukrainian_restaurant": "🇺🇦",
+        "uruguayan_restaurant": "🇺🇾",
+        "uzbek_restaurant": "🇺🇿",
+        "venezuelan_restaurant": "🇻🇪",
+        "vietnamese_restaurant": "🇻🇳",
+        "west african_restaurant": "🥘",
+        "yemeni_restaurant": "🇾🇪"
     };
 
     // Food-based emojis
     const foodEmojis = {
-        'acai_shop': '🍇',
-        'bagel_shop': '🥯',
-        'bakery': '🍞',
-        'bar': '🥃',
-        'bar_and_grill': '🍺🔥',
-        'barbecue_area': '🍖',
-        'barbecue_restaurant': '🍖',
-        'breakfast_restaurant': '🌞',
-        'brunch_restaurant': '🥑',
-        'buffet_restaurant': '🍱',
-        'cafe': '☕️',
-        'cafeteria': '🥣',
-        'candy_store': '🍬',
-        'cat_cafe': '🐱☕️',
-        'catering_service': '👩‍🍳',
-        'chocolate_shop': '🍫',
-        'coffee_shop': '☕️',
-        'confectionery': '🍬',
-        'deli': '🥪',
-        'dessert_restaurant': '🍰',
-        'dessert_shop': '🎂',
-        'diner': '🥓',
-        'dog_cafe': '🐶☕️',
-        'donut_shop': '🍩',
-        'fast_food_restaurant': '🍟',
-        'fine_dining_restaurant': '🍽️',
-        'food_court': '🥣',
-        'hamburger_restaurant': '🍔',
-        'ice_cream_shop': '🍦',
-        'internet_cafe': '💻',
-        'juice_shop': '🍊',
-        'meal_takeaway': '🥡',
-        'pizza_restaurant': '🍕',
-        'pub': '🍺',
-        'ramen_restaurant': '🍜',
-        'sandwich_shop': '🥪',
-        'seafood_restaurant': '🦞',
-        'steak_house': '🥩',
-        'sushi_restaurant': '🍣',
-        'tea_house': '🍵',
-        'vegan_restaurant': '🌱',
-        'vegetarian_restaurant': '🥗',
-        'wine_bar': '🍷'
+        "acai_shop": "🍇",
+        "bagel_shop": "🥯",
+        "bakery": "🍞",
+        "bar/pub": "🍺",
+        "bar_and_grill": "🍺🔥",
+        "barbecue_restaurant": "🍖",
+        "brunch_restaurant": "🥑",
+        "buffet_restaurant": "🍱",
+        "cafe": "☕️",
+        "chicken_restaurant": "🍗",
+        "chocolate_shop": "🍫",
+        "comfort food_restaurant": "🍲",
+        "deli": "🥪",
+        "dessert_shop": "🍰",
+        "diner": "🥓",
+        "donut_shop": "🍩",
+        "dumpling_restaurant": "🥟",
+        "fast_food_restaurant": "🍟",
+        "fine_dining_restaurant": "🍽️",
+        "food_court": "🥣",
+        "hamburger_restaurant": "🍔",
+        "health_food": "🥗",
+        "hookah_bar": "💨",
+        "hot pot_restaurant": "🍲",
+        "ice_cream_shop": "🍦",
+        "juice_shop": "🍊",
+        "lounge_restaurant": "🍸",
+        "noodle_restaurant": "🍜",
+        "poke_restaurant": "🐟",
+        "ramen_restaurant": "🍜",
+        "restaurant": "🍴",
+        "sandwich_shop": "🥪",
+        "seafood_restaurant": "🦞",
+        "steak_house": "🥩",
+        "sushi_restaurant": "🍣",
+        "takeout": "🥡",
+        "taco_restaurant": "🌮",
+        "tea_house": "🍵",
+        "teriyaki_restaurant": "🍢",
+        "vegan_restaurant": "🌱",
+        "vegetarian_restaurant": "🥗",
+        "wine_bar": "🍷"
     };
 
     return geoEmojis[primaryType] || foodEmojis[primaryType] || '❓';
@@ -288,72 +358,141 @@ function groupPrimaryTypes(types) {
     const geoBased = [
         "afghani_restaurant",
         "african_restaurant",
-        "american_restaurant",
         "asian_restaurant",
+        "albanian_restaurant",
+        "american_restaurant",
+        "argentine_restaurant",
+        "armenian_restaurant",
+        "australian_restaurant",
+        "austrian_restaurant",
+        "azerbaijani_restaurant",
+        "bangladeshi_restaurant",
+        "belgian_restaurant",
+        "bhutanese_restaurant",
+        "bolivian_restaurant",
+        "bosnian_restaurant",
         "brazilian_restaurant",
+        "british_restaurant",
+        "burmese_restaurant",
+        "cambodian_restaurant",
+        "canadian_restaurant",
+        "cantonese_restaurant",
+        "caribbean_restaurant",
         "chinese_restaurant",
+        "colombian_restaurant",
+        "croatian_restaurant",
+        "cuban_restaurant",
+        "dominican_restaurant",
+        "ecuadorian_restaurant",
+        "egyptian_restaurant",
+        "eritrean_restaurant",
+        "ethiopian_restaurant",
+        "filipino_restaurant",
         "french_restaurant",
+        "german_restaurant",
+        "ghanaian_restaurant",
         "greek_restaurant",
+        "grenadian_restaurant",
+        "guatemalan_restaurant",
+        "guyanese_restaurant",
+        "haitian_restaurant",
+        "honduran_restaurant",
         "indian_restaurant",
         "indonesian_restaurant",
+        "iranian_restaurant",
+        "irish_restaurant",
+        "israeli_restaurant",
         "italian_restaurant",
+        "ivorian_restaurant",
+        "jamaican_restaurant",
         "japanese_restaurant",
+        "kazakh_restaurant",
         "korean_restaurant",
         "lebanese_restaurant",
+        "malaysian_restaurant",
         "mediterranean_restaurant",
         "mexican_restaurant",
         "middle_eastern_restaurant",
+        "moroccan_restaurant",
+        "nepalese_restaurant",
+        "nigerian_restaurant",
+        "pakistani_restaurant",
+        "panamanian_restaurant",
+        "paraguayan_restaurant",
+        "peruvian_restaurant",
+        "persian_restaurant",
+        "polish_restaurant",
+        "portuguese_restaurant",
+        "romanian_restaurant",
+        "russian_restaurant",
+        "salvadoran_restaurant",
+        "senegalese_restaurant",
+        "serbian_restaurant",
+        "singaporean_restaurant",
+        "somali_restaurant",
         "spanish_restaurant",
+        "sri lankan_restaurant",
+        "surinamese_restaurant",
+        "swedish_restaurant",
+        "tajik_restaurant",
         "thai_restaurant",
+        "taiwanese_restaurant",
+        "tibetan_restaurant",
+        "trinidadian_restaurant",
         "turkish_restaurant",
-        "vietnamese_restaurant"
-      ];
+        "ukrainian_restaurant",
+        "uruguayan_restaurant",
+        "uzbek_restaurant",
+        "venezuelan_restaurant",
+        "vietnamese_restaurant",
+        "west african_restaurant",
+        "yemeni_restaurant"
+    ];
 
     const foodBased = [
         "acai_shop",
         "bagel_shop",
         "bakery",
-        "bar",
+        "bar/pub",
         "bar_and_grill",
-        "barbecue_area",
         "barbecue_restaurant",
-        "breakfast_restaurant",
         "brunch_restaurant",
         "buffet_restaurant",
         "cafe",
-        "cafeteria",
-        "candy_store",
-        "cat_cafe",
-        "catering_service",
+        "chicken_restaurant",
         "chocolate_shop",
-        "coffee_shop",
-        "confectionery",
+        "comfort food_restaurant",
         "deli",
-        "dessert_restaurant",
         "dessert_shop",
         "diner",
-        "dog_cafe",
         "donut_shop",
+        "dumpling_restaurant",
         "fast_food_restaurant",
         "fine_dining_restaurant",
         "food_court",
         "hamburger_restaurant",
+        "health_food",
+        "hookah_bar",
+        "hot pot_restaurant",
         "ice_cream_shop",
-        "internet_cafe",
         "juice_shop",
-        "meal_takeaway",
-        "pizza_restaurant",
-        "pub",
+        "lounge_restaurant",
+        "noodle_restaurant",
+        "poke_restaurant",
         "ramen_restaurant",
+        "restaurant",
         "sandwich_shop",
         "seafood_restaurant",
         "steak_house",
         "sushi_restaurant",
+        "takeout",
+        "taco_restaurant",
         "tea_house",
+        "teriyaki_restaurant",
         "vegan_restaurant",
         "vegetarian_restaurant",
         "wine_bar"
-      ];
+    ];
 
     const availableGeography = types.filter(type => geoBased.includes(type));
     const availableFoodType = types.filter(type => foodBased.includes(type));
@@ -387,11 +526,7 @@ function addMarkers(restaurants, selectedFilter, selectedPrices) {
 
     restaurants.forEach(restaurant => {
         // Determine if the restaurant matches the selected filter
-        const isPrimaryMatch =
-            selectedFilter === 'coffee_cafe'
-                ? restaurant.primary_type === 'coffee_shop' || restaurant.primary_type === 'cafe'
-                : restaurant.primary_type === selectedFilter;
-
+        const isPrimaryMatch = restaurant.primary_type === selectedFilter;
         const isPriceMatch = selectedPrices.length > 0 && selectedPrices.includes(restaurant.price_level);
 
         // Create a marker element
@@ -401,11 +536,11 @@ function addMarkers(restaurants, selectedFilter, selectedPrices) {
 
         // Apply styles based on match type
         if (isPrimaryMatch) {
-            el.style.fontSize = '15px'; // Much larger size for primary matches 
+            el.style.fontSize = '15px'; // Larger size for primary matches
             el.style.opacity = '1'; // Fully opaque for matches
         } else {
-            el.style.fontSize = '6px'; // Way smaller size for non-matches
-            el.style.opacity = '0.3'; // 90% transparent for non-matches
+            el.style.fontSize = '6px'; // Smaller size for non-matches
+            el.style.opacity = '0.3'; // 70% transparent for non-matches
         }
 
         el.style.textAlign = 'center';
@@ -434,22 +569,38 @@ function addMarkers(restaurants, selectedFilter, selectedPrices) {
             offset: 15, // Offset the popup from the marker
             className: 'restaurant-popup' // Add a unique class for restaurant popups
         });
-        
+
         el.addEventListener('mouseenter', () => {
             // Filter sub-types to exclude the primary type
             const filteredSubTypes = Array.isArray(restaurant.types)
                 ? restaurant.types.filter(type => type !== restaurant.primary_type).map(formatPrimaryType)
                 : [];
-        
-                popup
+
+            // Ensure generative_summary is handled properly
+            const description = restaurant.generative_summary
+                ? `<p style="margin-bottom: 10px;"><strong>Description:</strong> ${restaurant.generative_summary}</p>`
+                : '<p style="margin-bottom: 10px;"><strong>Description:</strong> No description available.</p>';
+
+            // Determine the number of stars based on ratingRanges
+            const getStarsForRating = (rating) => {
+                if (rating >= 1.0 && rating <= 3.7) return '⭐';
+                if (rating >= 3.8 && rating <= 4.0) return '⭐⭐';
+                if (rating >= 4.1 && rating <= 4.3) return '⭐⭐⭐';
+                if (rating >= 4.4 && rating <= 4.6) return '⭐⭐⭐⭐';
+                if (rating >= 4.7 && rating <= 5.0) return '⭐⭐⭐⭐⭐';
+                return ''; // Default to no stars if rating is out of range
+            };
+
+            // Update the popup content
+            popup
                 .setLngLat(restaurant.coordinates)
                 .setHTML(`
                     <div class="popup-content" style="
-                        font-family: Arial, sans-serif; /* Use a clean, readable font */
-                        font-size: 14px; /* Adjust font size for readability */
-                        line-height: 1.6; /* Increase line height for better spacing */
-                        color: white; /* Use a dark color for text */
-                        padding: 10px; /* Add padding for better spacing */
+                        font-family: Arial, sans-serif;
+                        font-size: 14px;
+                        line-height: 1.6;
+                        color: white;
+                        padding: 10px;
                     ">
                         <h3 style="margin-bottom: 10px; font-size: 16px; font-weight: bold;">${restaurant.name}</h3>
                         ${restaurant.price_level ? `
@@ -459,9 +610,10 @@ function addMarkers(restaurants, selectedFilter, selectedPrices) {
                         <p style="margin-bottom: 10px;"><strong>Primary Type:</strong> ${formatPrimaryType(restaurant.primary_type)}</p>
                         ${filteredSubTypes.length > 0 ? `
                         <p style="margin-bottom: 10px;"><strong>Sub-types:</strong> ${filteredSubTypes.join(', ')}</p>` : ''}
+                        ${description}
                         <div class="rating-container" style="margin-bottom: 10px;">
                             <span class="rating" style="font-size: 14px; font-weight: bold;">${restaurant.rating.toFixed(1)}</span>
-                            <span class="stars" style="color: #FFD700;">${'★'.repeat(Math.round(restaurant.rating))}</span>
+                            <span class="stars" style="color: #FFD700;">${getStarsForRating(restaurant.rating)}</span>
                             <span class="review-count" style="font-size: 12px; color: light grey;">(${restaurant.review_count} reviews)</span>
                         </div>
                     </div>
@@ -474,15 +626,9 @@ function addMarkers(restaurants, selectedFilter, selectedPrices) {
         });
 
         // Add the marker to the map
-        const marker = new mapboxgl.Marker({
-            element: el,
-            anchor: 'center'
-        })
-        .setLngLat(restaurant.coordinates)
-        .addTo(map);
-
-        // Store the primary type in the marker element for easy access
-        el.dataset.primaryType = restaurant.primary_type;
+        new mapboxgl.Marker({ element: el, anchor: 'center' })
+            .setLngLat(restaurant.coordinates)
+            .addTo(map);
     });
 }
 
@@ -542,7 +688,7 @@ function setupFilters(primaryTypes, priceLevels, allTypes) {
 
     filterContainer.appendChild(priceDiv);
 
-    // Add overall_rating filters with star emojis
+    // Add rating filters
     const ratingDiv = document.createElement('div');
     ratingDiv.className = 'filter-group';
     ratingDiv.innerHTML = '<h3>Overall Rating</h3>';
@@ -551,9 +697,8 @@ function setupFilters(primaryTypes, priceLevels, allTypes) {
         { id: 'rating-1', label: '⭐ 1.0 – 3.7', min: 1.0, max: 3.7 },
         { id: 'rating-2', label: '⭐⭐ 3.8 – 4.0', min: 3.8, max: 4.0 },
         { id: 'rating-3', label: '⭐⭐⭐ 4.1 – 4.3', min: 4.1, max: 4.3 },
-        { id: 'rating-4', label: '⭐⭐⭐⭐ 4.4 – 4.5', min: 4.4, max: 4.5 },
-        { id: 'rating-5', label: '⭐⭐⭐⭐⭐ 4.6 – 4.7', min: 4.6, max: 4.7 },
-        { id: 'rating-6', label: '⭐⭐⭐⭐🤩 4.8 – 5.0', min: 4.8, max: 5.0 }
+        { id: 'rating-4', label: '⭐⭐⭐⭐ 4.4 – 4.6', min: 4.4, max: 4.6 },
+        { id: 'rating-5', label: '⭐⭐⭐⭐⭐ 4.7 – 5.0', min: 4.7, max: 5.0 }
     ];
 
     ratingRanges.forEach(range => {
@@ -571,42 +716,25 @@ function setupFilters(primaryTypes, priceLevels, allTypes) {
 
     filterContainer.appendChild(ratingDiv);
 
-    // Group all types into categories by geography and food type
-    const groupedTypes = groupPrimaryTypes(allTypes);
+    // Group primary types by geography and food type
+    const groupedTypes = groupPrimaryTypes(primaryTypes);
 
-    // Add filters for each grouped type
     groupedTypes.forEach(group => {
         const groupDiv = document.createElement('div');
         groupDiv.className = 'filter-group';
         groupDiv.innerHTML = `<h3>${group.name}</h3>`;
 
         group.types.forEach(type => {
-            // Combine "coffee_shop" and "cafe" into one filter
-            if (type === 'coffee_shop' || type === 'cafe') {
-                if (!groupDiv.querySelector('#type-coffee_cafe')) {
-                    const div = document.createElement('div');
-                    div.className = 'filter-item';
-                    div.innerHTML = `
-                        <input type="checkbox" id="type-coffee_cafe" aria-label="Filter by Cafe/Coffee Shop">
-                        <label for="type-coffee_cafe">
-                            ☕️ Cafe/Coffee Shop
-                        </label>
-                    `;
-                    groupDiv.appendChild(div);
-                    div.querySelector('input').addEventListener('change', filterRestaurants);
-                }
-            } else {
-                const div = document.createElement('div');
-                div.className = 'filter-item';
-                div.innerHTML = `
-                    <input type="checkbox" id="type-${type}" aria-label="Filter by type ${formatPrimaryType(type)}">
-                    <label for="type-${type}">
-                        ${getEmojiForCuisine(type)} ${formatPrimaryType(type)}
-                    </label>
-                `;
-                groupDiv.appendChild(div);
-                div.querySelector('input').addEventListener('change', filterRestaurants);
-            }
+            const div = document.createElement('div');
+            div.className = 'filter-item';
+            div.innerHTML = `
+                <input type="checkbox" id="type-${type}" aria-label="Filter by type ${formatPrimaryType(type)}">
+                <label for="type-${type}">
+                    ${getEmojiForCuisine(type)} ${formatPrimaryType(type)}
+                </label>
+            `;
+            groupDiv.appendChild(div);
+            div.querySelector('input').addEventListener('change', filterRestaurants);
         });
 
         filterContainer.appendChild(groupDiv);
@@ -633,9 +761,8 @@ function filterRestaurants() {
         { id: 'rating-1', min: 1.0, max: 3.7 },
         { id: 'rating-2', min: 3.8, max: 4.0 },
         { id: 'rating-3', min: 4.1, max: 4.3 },
-        { id: 'rating-4', min: 4.4, max: 4.5 },
-        { id: 'rating-5', min: 4.6, max: 4.7 },
-        { id: 'rating-6', min: 4.8, max: 5.0 }
+        { id: 'rating-4', min: 4.4, max: 4.6 },
+        { id: 'rating-5', min: 4.7, max: 5.0 }
     ];
 
     // Collect selected types, price levels, and ratings
@@ -663,16 +790,7 @@ function filterRestaurants() {
 
     // Filter restaurants based on selected filters
     const filtered = window.restaurantData.filter(restaurant => {
-        const matchesTypes = selectedTypes.length === 0 || selectedTypes.some(type => {
-            if (type === 'coffee_cafe') {
-                // Match "coffee_shop" or "cafe" in primary_type or types
-                return (
-                    restaurant.primary_type === 'coffee_shop' ||
-                    restaurant.primary_type === 'cafe' ||
-                    (Array.isArray(restaurant.types) &&
-                        (restaurant.types.includes('coffee_shop') || restaurant.types.includes('cafe')))
-                );
-            }
+        const matchesTypes = selectedTypes.length === 0 || selectedTypes.every(type => {
             return (
                 restaurant.primary_type === type ||
                 (Array.isArray(restaurant.types) && restaurant.types.includes(type))
@@ -685,6 +803,7 @@ function filterRestaurants() {
             return restaurant.rating >= range.min && restaurant.rating <= range.max;
         });
 
+        // Only include restaurants that match all selected filters
         return matchesTypes && matchesPriceLevel && matchesRating;
     });
 
@@ -733,8 +852,7 @@ function updateFilterCounts(filteredRestaurants) {
             { id: 'rating-2', min: 3.8, max: 4.0 },
             { id: 'rating-3', min: 4.1, max: 4.3 },
             { id: 'rating-4', min: 4.4, max: 4.5 },
-            { id: 'rating-5', min: 4.6, max: 4.7 },
-            { id: 'rating-6', min: 4.8, max: 5.0 }
+            { id: 'rating-5', min: 4.6, max: 5.0 }
         ];
 
         ratingRanges.forEach(range => {
@@ -759,15 +877,7 @@ function updateFilterCounts(filteredRestaurants) {
         if (checkbox.id.startsWith('type-')) {
             const type = checkbox.id.replace('type-', '');
             const count = filterCounts[type] || 0; // Default to 0 if no matches
-
-            // Handle combined filter "coffee_cafe"
-            if (type === 'coffee_cafe') {
-                const coffeeCount = filterCounts['coffee_shop'] || 0;
-                const cafeCount = filterCounts['cafe'] || 0;
-                label.innerHTML = `☕️ Cafe/Coffee Shop (${coffeeCount + cafeCount})`;
-            } else {
-                label.innerHTML = `${getEmojiForCuisine(type)} ${formatPrimaryType(type)} (${count})`;
-            }
+            label.innerHTML = `${getEmojiForCuisine(type)} ${formatPrimaryType(type)} (${count})`;
         } else if (checkbox.id.startsWith('price-')) {
             const price = checkbox.id.replace('price-', '');
             const count = filterCounts[price] || 0; // Default to 0 if no matches
@@ -783,7 +893,7 @@ function updateFilterCounts(filteredRestaurants) {
 // Load restaurant data
 async function loadRestaurantData() {
     try {
-        const response = await fetch('filtered_restaurants.json');
+        const response = await fetch('restaurants_filtered.json');
         if (!response.ok) throw new Error('Failed to load data');
         const rawData = await response.json();
         return processRestaurantData(rawData);
