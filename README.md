@@ -154,7 +154,6 @@ This project is created to:
       | west african_restaurant | 34 |
       | yemeni_restaurant | 13 |
       | **Primary Type By Foods**  ||
-      |:----------------|------:|
       | bakery | 242 |
       | bar/pub | 1443 |
       | bar_and_grill | 221 |
