@@ -52,75 +52,151 @@ This project is created to:
       - Number of Reviews
       - Text of top 5 Reviews
       - Whether it has a restroom or not
-   - **Total Unique Restaurants**: 21,891
+   - **Dataset Breakdown**
 
-      **Primary Types by Geography**
-
-      | Cuisine Type              | Count       |
-      | ------------------------- | ----------- |
-      | Afghani Restaurant        | 12          |
-      | African Restaurant        | 22          |
-      | American Restaurant       | 847         |
-      | Asian Restaurant          | 194         |
-      | Brazilian Restaurant      | 24          |
-      | Chinese Restaurant        | 1,770       |
-      | French Restaurant         | 161         |
-      | Greek Restaurant          | 133         |
-      | Indian Restaurant         | 299         |
-      | Indonesian Restaurant     | 4           |
-      | Italian Restaurant        | 877         |
-      | Japanese Restaurant       | 579         |
-      | Korean Restaurant         | 296         |
-      | Lebanese Restaurant       | 23          |
-      | Mediterranean Restaurant  | 223         |
-      | Mexican Restaurant        | 1,166       |
-      | Middle Eastern Restaurant | 109         |
-      | Spanish Restaurant        | 83          |
-      | Thai Restaurant           | 345         |
-      | Turkish Restaurant        | 54          |
-      | Vietnamese Restaurant     | 144         |
-
-      **Primary Types by Food**
-
-      | Food Type              | Count      |
-      | ---------------------- | ---------- |
-      | Acai Shop              | 11         |
-      | Bagel Shop             | 110        |
-      | Bakery                 | 242        |
-      | Bar                    | 902        |
-      | Bar and Grill          | 221        |
-      | Barbecue Restaurant    | 91         |
-      | Buffet Restaurant      | 43         |
-      | Cafe                   | 392        |
-      | Cafeteria              | 8          |
-      | Catering Service       | 33         |
-      | Chocolate Shop         | 1          |
-      | Coffee Shop            | 432        |
-      | Confectionery          | 2          |
-      | Deli                   | 426        |
-      | Dessert Restaurant     | 12         |
-      | Dessert Shop           | 32         |
-      | Diner                  | 239        |
-      | Donut Shop             | 3          |
-      | Fine Dining Restaurant | 53         |
-      | Food Court             | 38         |
-      | Hamburger Restaurant   | 242        |
-      | Ice Cream Shop         | 27         |
-      | Juice Shop             | 49         |
-      | Meal Delivery          | 52         |
-      | Meal Takeaway          | 128        |
-      | Pizza Restaurant       | 1,344      |
-      | Pub                    | 96         |
-      | Ramen Restaurant       | 122        |
-      | Sandwich Shop          | 251        |
-      | Seafood Restaurant     | 292        |
-      | Steak House            | 133        |
-      | Sushi Restaurant       | 329        |
-      | Tea House              | 23         |
-      | Vegan Restaurant       | 86         |
-      | Vegetarian Restaurant  | 35         |
-      | Wine Bar               | 77         |
-
+      | Restaurant Type               | Count  |
+      |-------------------------------|--------|
+      | **Summary Statistics** | |
+      | Total Unique Restaurants | 20,847 |
+      | Total Unique Primary Types | 143 |
+      | Total Unique Types | 73 |
+      | **Primary Type By Geography** | |
+      | afghani_restaurant | 12 |
+      | afghan_restaurant | 3 |
+      | african_restaurant | 22 |
+      | albanian_restaurant | 6 |
+      | american_restaurant | 1093 |
+      | armenian_restaurant | 3 |
+      | argentine_restaurant | 4 |
+      | asian_restaurant | 246 |
+      | australian_restaurant | 15 |
+      | austrian_restaurant | 4 |
+      | bangladeshi_restaurant | 37 |
+      | belgian_restaurant | 17 |
+      | bosnian_restaurant | 1 |
+      | brazilian_restaurant | 25 |
+      | british_restaurant | 11 |
+      | burmese_restaurant | 5 |
+      | cambodian_restaurant | 1 |
+      | canadian_restaurant | 1 |
+      | cantonese_restaurant | 3 |
+      | caribbean_restaurant | 210 |
+      | chinese_restaurant | 1920 |
+      | colombian_restaurant | 127 |
+      | croatian_restaurant | 1 |
+      | cuban_restaurant | 49 |
+      | czech_restaurant | 2 |
+      | dominican_restaurant | 315 |
+      | dutch_restaurant | 1 |
+      | ecuadorian_restaurant | 88 |
+      | egyptian_restaurant | 6 |
+      | eritrean_restaurant | 2 |
+      | ethiopian_restaurant | 13 |
+      | filipino_restaurant | 29 |
+      | french_restaurant | 191 |
+      | georgian_restaurant | 32 |
+      | german_restaurant | 18 |
+      | ghanaian_restaurant | 2 |
+      | greek_restaurant | 155 |
+      | grenadian_restaurant | 1 |
+      | guatemalan_restaurant | 9 |
+      | guyanese_restaurant | 11 |
+      | haitian_restaurant | 43 |
+      | honduran_restaurant | 10 |
+      | hungarian_restaurant | 2 |
+      | indian_restaurant | 332 |
+      | indonesian_restaurant | 4 |
+      | iranian_restaurant | 1 |
+      | irish_restaurant | 30 |
+      | israeli_restaurant | 23 |
+      | italian_restaurant | 971 |
+      | ivorian_restaurant | 1 |
+      | jamaican_restaurant | 279 |
+      | japanese_restaurant | 614 |
+      | kazakh_restaurant | 1 |
+      | korean_restaurant | 343 |
+      | lao_restaurant | 1 |
+      | lebanese_restaurant | 23 |
+      | malaysian_restaurant | 18 |
+      | mediterranean_restaurant | 276 |
+      | mexican_restaurant | 1290 |
+      | middle_eastern_restaurant | 142 |
+      | moroccan_restaurant | 4 |
+      | nepalese_restaurant | 16 |
+      | nigerian_restaurant | 7 |
+      | pakistani_restaurant | 27 |
+      | panamanian_restaurant | 1 |
+      | paraguayan_restaurant | 2 |
+      | peruvian_restaurant | 100 |
+      | polish_restaurant | 13 |
+      | portuguese_restaurant | 8 |
+      | romanian_restaurant | 3 |
+      | russian_restaurant | 19 |
+      | salvadoran_restaurant | 33 |
+      | senegalese_restaurant | 9 |
+      | serbian_restaurant | 1 |
+      | singaporean_restaurant | 3 |
+      | somali_restaurant | 1 |
+      | spanish_restaurant | 107 |
+      | sri lankan_restaurant | 7 |
+      | swedish_restaurant | 4 |
+      | taiwanese_restaurant | 35 |
+      | tajik_restaurant | 1 |
+      | thai_restaurant | 358 |
+      | tibetan_restaurant | 14 |
+      | trinidadian_restaurant | 12 |
+      | turkish_restaurant | 57 |
+      | ukrainian_restaurant | 5 |
+      | uruguayan_restaurant | 1 |
+      | uzbek_restaurant | 27 |
+      | venezuelan_restaurant | 23 |
+      | vietnamese_restaurant | 155 |
+      | west african_restaurant | 34 |
+      | yemeni_restaurant | 13 |
+      | **Primary Type By Foods**  ||
+      |:----------------|------:|
+      | bakery | 242 |
+      | bar/pub | 1443 |
+      | bar_and_grill | 221 |
+      | bagel_shop | 110 |
+      | breakfast_restaurant | 91 |
+      | brunch_restaurant | 31 |
+      | buffet_restaurant | 43 |
+      | cafe | 1053 |
+      | chocolate_shop | 1 |
+      | chicken_restaurant | 600 |
+      | comfort food_restaurant | 150 |
+      | deli | 426 |
+      | dessert_shop | 44 |
+      | diner | 239 |
+      | donut_shop | 3 |
+      | dumpling_restaurant | 36 |
+      | fast_food_restaurant | 526 |
+      | fine_dining_restaurant | 53 |
+      | food_court | 41 |
+      | hamburger_restaurant | 242 |
+      | halal_restaurant | 110 |
+      | health_food | 81 |
+      | hookah_bar | 2 |
+      | ice_cream_shop | 27 |
+      | juice_shop | 49 |
+      | lounge_restaurant | 30 |
+      | noodle_restaurant | 26 |
+      | pizza_restaurant | 1406 |
+      | poke_restaurant | 9 |
+      | ramen_restaurant | 122 |
+      | restaurant | 1607 |
+      | sandwich_shop | 251 |
+      | seafood_restaurant | 292 |
+      | steak_house | 133 |
+      | sushi_restaurant | 368 |
+      | taco_restaurant | 55 |
+      | takeout | 46 |
+      | tea_house | 23 |
+      | teriyaki_restaurant | 5 |
+      | vegan_restaurant | 110 |
+      | vegetarian_restaurant | 51 |
+      | wine_bar | 77 |
 
 ## Technologies Used
 
