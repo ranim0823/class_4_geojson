@@ -60,6 +60,7 @@ This project is created to:
       | Total Unique Restaurants | 20,847 |
       | Total Unique Primary Types | 143 |
       | Total Unique Types | 73 |
+      | Total Number of Reviews | 102,450 (average 4.9 reviews per restaurant) |
       | **Primary Type By Geography** | |
       | afghani_restaurant | 12 |
       | afghan_restaurant | 3 |
